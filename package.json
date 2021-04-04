@@ -4,6 +4,8 @@
   "homepage": "http://6859-sp21.github.io/a4-thecitythatneversleeps",
   "private": true,
   "dependencies": {
+    "@deck.gl/core": "^8.4.11",
+    "@deck.gl/layers": "^8.4.11",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
