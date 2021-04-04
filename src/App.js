@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import Slider from './slider/Slider.js'
 
 function App() {
   return (
