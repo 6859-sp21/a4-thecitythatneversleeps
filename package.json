@@ -6,6 +6,7 @@
   "dependencies": {
     "@deck.gl/core": "^8.4.11",
     "@deck.gl/layers": "^8.4.11",
+    "@loaders.gl/core": "^2.3.13",
     "@luma.gl/core": "^8.4.1",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",

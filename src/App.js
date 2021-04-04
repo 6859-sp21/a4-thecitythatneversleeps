@@ -9,7 +9,8 @@ import './App.css';
 import Slider from './slider/Slider.js';
 
 const config = {
-  mapboxAccessToken: process.env.MapboxAccessToken
+  mapboxAccessToken: "pk.eyJ1IjoibWVsb2R5cGh1IiwiYSI6ImNrbjJlbms0eDE2eTkyb21vb3RpOTJtYmoifQ.KyZkOMUbvjs8btwGKqNyjg" 
+  //process.env.MapboxAccessToken
 }
 
 // Viewport settings
