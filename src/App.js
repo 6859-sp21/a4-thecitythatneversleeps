@@ -17,6 +17,13 @@ function App() {
         >
           Learn React
         </a>
+        <div>
+          <Slider
+              initial={10} 
+              max={25} 
+              onChange={value => console.log(value)}
+            />
+        </div>
       </header>
     </div>
   );
