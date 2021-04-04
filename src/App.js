@@ -7,7 +7,7 @@ import {StaticMap} from 'react-map-gl';
 import logo from './logo.svg';
 import './App.css';
 import ReactSlider from 'react-slider'
-
+import Slider from './slider/Slider';
 
 const config = {
   mapboxAccessToken: "pk.eyJ1IjoibWVsb2R5cGh1IiwiYSI6ImNrbjJlbms0eDE2eTkyb21vb3RpOTJtYmoifQ.KyZkOMUbvjs8btwGKqNyjg" 
