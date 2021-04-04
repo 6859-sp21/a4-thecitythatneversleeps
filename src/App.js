@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Slider from './slider/Slider.js'
+import ReactSlider from 'react-slider'
 
 function App() {
   return (
@@ -18,13 +18,17 @@ function App() {
         >
           Learn React
         </a>
-        <div>
-          <Slider
-              initial={10} 
-              max={25} 
-              onChange={value => console.log(value)}
-            />
-        </div>
+        <ReactSlider
+          className="horizontal-slider"
+          thumbClassName="example-thumb"
+          trackClassName="example-track"
+          defaultValue={[0, 100]}
+          ariaLabel={['Lower thumb', 'Upper thumb']}
+          ariaValuetext={state => `Thumb value ${state.valueNow}`}
+          renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+          pearling
+          minDistance={10}
+        />
       </header>
     </div>
   );
