@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/a4-thecitythatneversleeps/static/css/main.07789032.chunk.css",
-    "main.js": "/a4-thecitythatneversleeps/static/js/main.b72361a3.chunk.js",
-    "main.js.map": "/a4-thecitythatneversleeps/static/js/main.b72361a3.chunk.js.map",
+    "main.js": "/a4-thecitythatneversleeps/static/js/main.d15cb3d7.chunk.js",
+    "main.js.map": "/a4-thecitythatneversleeps/static/js/main.d15cb3d7.chunk.js.map",
     "runtime-main.js": "/a4-thecitythatneversleeps/static/js/runtime-main.ed276763.js",
     "runtime-main.js.map": "/a4-thecitythatneversleeps/static/js/runtime-main.ed276763.js.map",
     "static/css/2.7d3194d7.chunk.css": "/a4-thecitythatneversleeps/static/css/2.7d3194d7.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.7d3194d7.chunk.css",
     "static/js/2.e1cdc33f.chunk.js",
     "static/css/main.07789032.chunk.css",
-    "static/js/main.b72361a3.chunk.js"
+    "static/js/main.d15cb3d7.chunk.js"
   ]
 }
