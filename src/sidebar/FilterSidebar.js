@@ -49,7 +49,7 @@ class FilterSideBar extends React.Component {
             <SidebarHeader>
             <div className="logotext">
                 {/* small and big change using menucollapse state */}
-                <p>{this.state.menuCollapse ? "NYC" : "The City That Never Sleeps"}</p>
+                <p>{this.state.menuCollapse ? "A4" : "The City That Never Sleeps"}</p>
               </div>
               <div className="closemenu" onClick={this.menuIconClick}>
                   {/* changing menu collapse icon on click */}
