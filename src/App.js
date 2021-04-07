@@ -4,9 +4,11 @@ import './App.css';
 import data1 from "./data/mapData1";
 import data2 from "./data/mapData2";
 import data3 from "./data/mapData3";
+import filterData from "./data/filterOptions";
 
 import BaseMap from "./map/BaseMap";
 import FilterSidebar from "./sidebar/FilterSidebar";
+import DateSlider from "./slider/Slider";
 
 const fieldNames = ['Location Type', 'borough', 'neighborhood', 'Incident Zip'];
 
@@ -22,7 +24,7 @@ class App extends React.Component {
       endDatetime: 'March 31, 2021, 11:59:59 PM',
       // add any other default filter parameters here
       openSidebar: false,
-      filterOptions: {},
+      filterOptions: filterData.filterOptions,
     }
   }
 
@@ -47,28 +49,6 @@ class App extends React.Component {
     };
 
     return mapData;
-  }
-
-  // TODO find all unique values of things to filter by
-  getFilterOptions(mapData) {
-    var filterOptions = {
-      'Location Type': [],
-      'borough': [],
-      'neighborhood': [],
-      'Incident Zip': [],
-    }
-    for (const key in mapData) {
-      let datapoint = mapData[key];
-
-      for (const field of fieldNames) {
-        let value = datapoint[field];
-
-        if (filterOptions[field] && !filterOptions[field].includes(value)){
-          filterOptions[field].push(value);
-        }
-      }
-    }
-    return filterOptions;
   }
 
   // for filtering data, called by FilterSidebar.js
@@ -107,11 +87,10 @@ class App extends React.Component {
   // when the component is first created
   componentDidMount() {
     var mapData = this.getMapData();
-    var filterOptions = this.getFilterOptions(mapData);
 
     this.setState({
       mapData: mapData,
-      filterOptions: filterOptions,
+      filterOptions: filterData.filterOptions,
       filteredData: JSON.parse(JSON.stringify(mapData))
     })
   }
@@ -130,6 +109,10 @@ class App extends React.Component {
           filterOptions={this.state.filterOptions}
         >
         </FilterSidebar>
+        {/* <div style={{zIndex: 10}}>
+          <DateSlider> 
+          </DateSlider>
+        </div> */}
       </div>
     );
   }

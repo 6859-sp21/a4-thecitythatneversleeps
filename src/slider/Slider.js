@@ -1,81 +1,71 @@
 import React from 'react';
-import styled from 'styled-components';
- 
-const StyledSlider = styled.div`
-  position: relative;
-  border-radius: 3px;
-  background: #dddddd;
-  height: 15px;
-`;
- 
-const StyledThumb = styled.div`
-  width: 10px;
-  height: 25px;
-  border-radius: 3px;
-  position: relative;
-  top: -5px;
-  opacity: 0.5;
-  background: #823eb7;
-  cursor: pointer;
-`;
- 
-const getPercentage = (current, max) => (100 * current) / max;
- 
-const getValue = (percentage, max) => (max / 100) * percentage;
- 
-const getLeft = percentage => `calc(${percentage}% - 5px)`;
+import PropTypes from 'prop-types';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
-const Slider = ({initial, max, onChange}) => {
-    const initialPercentage = getPercentage(initial, max);
-    const sliderRef = React.useRef();
-    const thumbRef = React.useRef();
-    const diff = React.useRef();
- 
-    const handleMouseMove = event => {
-        let newX = event.clientX - diff.current - sliderRef.current.getBoundingClientRect().left;
+const AirbnbSlider = withStyles({
+  root: {
+    color: '#3a8589',
+    height: 3,
+    padding: '13px 0',
+  },
+  thumb: {
+    height: 27,
+    width: 27,
+    backgroundColor: '#fff',
+    border: '1px solid currentColor',
+    marginTop: -12,
+    marginLeft: -13,
+    boxShadow: '#ebebeb 0 2px 2px',
+    '&:focus, &:hover, &$active': {
+      boxShadow: '#ccc 0 2px 3px 1px',
+    },
+    '& .bar': {
+      // display: inline-block !important;
+      height: 9,
+      width: 1,
+      backgroundColor: 'currentColor',
+      marginLeft: 1,
+      marginRight: 1,
+    },
+  },
+  active: {},
+  track: {
+    height: 3,
+  },
+  rail: {
+    color: '#d8d8d8',
+    opacity: 1,
+    height: 3,
+  },
+})(Slider);
 
-        const end = sliderRef.current.offsetWidth - thumbRef.current.offsetWidth;
- 
-        const start = 0;
-    
-        if (newX < start) {
-        newX = 0;
-        }
-    
-        if (newX > end) {
-            newX = end;
-        }
-
-        const newPercentage = getPercentage(newX, end);
-        const newValue = getValue(newPercentage, max);
-        thumbRef.current.style.left = getLeft(newPercentage);
-        onChange(newValue);
-    };
-    
-    const handleMouseUp = () => {
-        document.removeEventListener('mouseup', handleMouseUp);
-        document.removeEventListener('mousemove', handleMouseMove);
-    };
-    
-    const handleMouseDown = event => {
-        diff.current =
-        event.clientX - thumbRef.current.getBoundingClientRect().left;
-    
-        document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseup', handleMouseUp);
-    };
-   
+class DateSlider extends React.Component {
+  
+  getThumbComponent(props) {
     return (
-      <>
-        <StyledSlider ref={sliderRef}>
-            <StyledThumb
-            style={{ left: getLeft(initialPercentage) }}
-            ref={thumbRef}
-            onMouseDown={handleMouseDown}
-            />
-        </StyledSlider>
-      </>
+      <span {...props}>
+        <span className="bar" />
+        <span className="bar" />
+        <span className="bar" />
+      </span>
     );
-};
- 
-export default Slider;
+  }
+
+  render() {
+    return (
+      <div style={{zIndex: 1}}>
+        <Typography gutterBottom>Select a Date Range</Typography>
+        <AirbnbSlider
+          ThumbComponent={this.getThumbComponent}
+          getAriaLabel={(index) => (index === 0 ? 'Start Month' : 'End Month')}
+          defaultValue={[20, 40]}
+        />
+      </div>
+    );
+  }
+}
+
+export default DateSlider;
