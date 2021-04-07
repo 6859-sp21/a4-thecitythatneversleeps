@@ -8,6 +8,8 @@ import data3 from "./data/mapData3";
 import BaseMap from "./map/BaseMap";
 import FilterSidebar from "./sidebar/FilterSidebar";
 
+const fieldNames = ['Location Type', 'borough', 'neighborhood', 'Incident Zip'];
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,8 +22,7 @@ class App extends React.Component {
       endDatetime: 'March 31, 2021, 11:59:59 PM',
       // add any other default filter parameters here
       openSidebar: false,
-      fieldNames: ['Location Type', 'borough', 'neighborhood', 'Incident Zip'],
-      filterOptions: {}
+      filterOptions: {},
     }
   }
 
@@ -50,20 +51,23 @@ class App extends React.Component {
 
   // TODO find all unique values of things to filter by
   getFilterOptions(mapData) {
-    var filterOptions = {}
+    var filterOptions = {
+      'Location Type': [],
+      'borough': [],
+      'neighborhood': [],
+      'Incident Zip': [],
+    }
     for (const key in mapData) {
       let datapoint = mapData[key];
 
-      for (const field in this.state.fieldNames) {
-        let existingOptions = (filterOptions[field]) ? this.state.filterOptions[field] : [];
+      for (const field of fieldNames) {
         let value = datapoint[field];
 
-        if (!existingOptions.includes(value)) {
-          existingOptions.push(value);
+        if (filterOptions[field] && !filterOptions[field].includes(value)){
+          filterOptions[field].push(value);
         }
       }
     }
-
     return filterOptions;
   }
 

@@ -5,24 +5,23 @@ import React, { useState } from "react";
 //import react pro sidebar components
 import {
   ProSidebar,
-  Menu,
-  MenuItem,
   SidebarHeader,
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
 
 import Button from '@material-ui/core/Button';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import { green, purple, white, grey} from '@material-ui/core/colors';
 import amber from '@material-ui/core/colors/amber';
 
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
 
 //import icons from react icons
-import { FaList, FaRegHeart } from "react-icons/fa";
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { RiPencilLine } from "react-icons/ri";
-import { BiCog } from "react-icons/bi";
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
@@ -40,6 +39,17 @@ const theme = createMuiTheme({
     primary: amber,
   },
 });
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -62,15 +72,17 @@ class FilterSideBar extends React.Component {
         "neighborhood": [],
         "Location Type": [],
       }, 
+      filterOptions: {},
     }
   }
 
-  // componentDidMount() {
-  //   // Initally all filters are selected
-  //   this.setState({
-  //     filters: JSON.parse(JSON.stringify(this.props.filterOptions))
-  //   })
-  // }
+  componentDidMount() {
+    // Initally all filters are selected
+    this.setState({
+      filters: JSON.parse(JSON.stringify(this.props.filterOptions)),
+      filterOptions: this.props.filterOptions,
+    })
+  }
 
   setMenuCollapse(value) {
     this.setState({
@@ -84,6 +96,47 @@ class FilterSideBar extends React.Component {
 
   onSubmit = () => {
     this.props.updateMapData(this.state.filters);
+  }
+
+  getSidebarContent() {
+    return (
+      <div>
+        <div style = {tStyle}>Filter by Borough</div>
+        <br/>
+        <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Apply Filters</ColorButton>    
+      </div>
+    )
+  }
+
+  // for single select field
+  handleChangeSingle = (event) => {
+    let value = event.target.value;
+    let fieldName = event.target.id;
+
+    let currFilters = this.state.filters;
+    currFilters[fieldName] = [value];
+    this.setState({
+      filters: currFilters,
+    })
+  }
+
+  handleChangeMultiple = (event) => {
+    const {options} = event.target;
+    let fieldName = event.target.id;
+
+    var values = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        values.push(options[i].value);
+      }
+    }
+
+    let currFilters = this.state.filters;
+    currFilters[fieldName] = values;
+
+    this.setState({
+      filters: currFilters,
+    })
   }
 
   render() {
@@ -122,15 +175,12 @@ class FilterSideBar extends React.Component {
                 )}
               </div>
             </SidebarHeader>
-            <div> 
-              {this.state.menuCollapse ? (
-                <div/>
-              ) : (
+            {!this.state.menuCollapse &&(
+              <div> 
                 <div>
                   <div className="space">
                     <SidebarContent>
-                      <div style = {tStyle}>Filters</div>
-                      <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Click me</ColorButton>
+                      {this.getSidebarContent()}
                     </SidebarContent>
                   </div>
                   <div className="bottom-space">
@@ -139,8 +189,8 @@ class FilterSideBar extends React.Component {
                     </SidebarFooter>
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </ProSidebar>
         </div>
       </>
