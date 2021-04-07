@@ -26,21 +26,22 @@ def make_json():
         i = 0
         for rows in csvReader:
             del rows[""]
+            
+            if rows["Location"] != "":
+                loc = rows["Location"][1:-1].split(", ")
+                if len(loc) > 1:
+                    rows["Location"] = "[" + loc[1] + ", " + loc[0] + "]"
 
-            loc = rows["Location"][1:-1].split(", ")
-            if len(loc) > 1:
-                rows["Location"] = "[" + loc[1] + ", " + loc[0] + "]"
+                # Assuming a column named 'No' to
+                # be the primary key
+                if i % 3 == 0:
+                    data1[i] = rows
+                elif i % 3 == 1:
+                    data2[i] = rows
+                else:
+                    data3[i] = rows
 
-            # Assuming a column named 'No' to
-            # be the primary key
-            if i % 3 == 0:
-                data1[i] = rows
-            elif i % 3 == 1:
-                data2[i] = rows
-            else:
-                data3[i] = rows
-
-            i+=1
+                i+=1
  
     # Open a json writer, and use the json.dumps()
     # function to dump data

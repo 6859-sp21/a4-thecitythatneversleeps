@@ -83,7 +83,7 @@ class BaseMap extends React.Component {
             })
         ];
 
-        console.log(iconData.length);
+        console.log(mapData[2]);
 
         // update the state of the component
         this.setState({
