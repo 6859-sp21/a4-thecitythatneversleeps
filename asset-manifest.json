@@ -1,23 +1,25 @@
 {
   "files": {
-    "main.css": "/a4-thecitythatneversleeps/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/a4-thecitythatneversleeps/static/js/main.1eb113a5.chunk.js",
-    "main.js.map": "/a4-thecitythatneversleeps/static/js/main.1eb113a5.chunk.js.map",
-    "runtime-main.js": "/a4-thecitythatneversleeps/static/js/runtime-main.55334d99.js",
-    "runtime-main.js.map": "/a4-thecitythatneversleeps/static/js/runtime-main.55334d99.js.map",
-    "static/js/2.b99c9e05.chunk.js": "/a4-thecitythatneversleeps/static/js/2.b99c9e05.chunk.js",
-    "static/js/2.b99c9e05.chunk.js.map": "/a4-thecitythatneversleeps/static/js/2.b99c9e05.chunk.js.map",
-    "static/js/3.55463b93.chunk.js": "/a4-thecitythatneversleeps/static/js/3.55463b93.chunk.js",
-    "static/js/3.55463b93.chunk.js.map": "/a4-thecitythatneversleeps/static/js/3.55463b93.chunk.js.map",
+    "main.css": "/a4-thecitythatneversleeps/static/css/main.07789032.chunk.css",
+    "main.js": "/a4-thecitythatneversleeps/static/js/main.b72361a3.chunk.js",
+    "main.js.map": "/a4-thecitythatneversleeps/static/js/main.b72361a3.chunk.js.map",
+    "runtime-main.js": "/a4-thecitythatneversleeps/static/js/runtime-main.ed276763.js",
+    "runtime-main.js.map": "/a4-thecitythatneversleeps/static/js/runtime-main.ed276763.js.map",
+    "static/css/2.7d3194d7.chunk.css": "/a4-thecitythatneversleeps/static/css/2.7d3194d7.chunk.css",
+    "static/js/2.e1cdc33f.chunk.js": "/a4-thecitythatneversleeps/static/js/2.e1cdc33f.chunk.js",
+    "static/js/2.e1cdc33f.chunk.js.map": "/a4-thecitythatneversleeps/static/js/2.e1cdc33f.chunk.js.map",
+    "static/js/3.c51e811a.chunk.js": "/a4-thecitythatneversleeps/static/js/3.c51e811a.chunk.js",
+    "static/js/3.c51e811a.chunk.js.map": "/a4-thecitythatneversleeps/static/js/3.c51e811a.chunk.js.map",
     "index.html": "/a4-thecitythatneversleeps/index.html",
-    "static/css/main.9d5b29c0.chunk.css.map": "/a4-thecitythatneversleeps/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.b99c9e05.chunk.js.LICENSE.txt": "/a4-thecitythatneversleeps/static/js/2.b99c9e05.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/a4-thecitythatneversleeps/static/media/logo.6ce24c58.svg"
+    "static/css/2.7d3194d7.chunk.css.map": "/a4-thecitythatneversleeps/static/css/2.7d3194d7.chunk.css.map",
+    "static/css/main.07789032.chunk.css.map": "/a4-thecitythatneversleeps/static/css/main.07789032.chunk.css.map",
+    "static/js/2.e1cdc33f.chunk.js.LICENSE.txt": "/a4-thecitythatneversleeps/static/js/2.e1cdc33f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.55334d99.js",
-    "static/js/2.b99c9e05.chunk.js",
-    "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.1eb113a5.chunk.js"
+    "static/js/runtime-main.ed276763.js",
+    "static/css/2.7d3194d7.chunk.css",
+    "static/js/2.e1cdc33f.chunk.js",
+    "static/css/main.07789032.chunk.css",
+    "static/js/main.b72361a3.chunk.js"
   ]
 }
