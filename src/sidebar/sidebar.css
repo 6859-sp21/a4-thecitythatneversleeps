@@ -1,5 +1,5 @@
 #header {
-    position: absolute;
+    position: relative;
     width: 300px;
   }
   #header .pro-sidebar {
@@ -67,8 +67,9 @@
 
   #header .bottom-space {
     position: absolute;
-    top: 755px;
-    left: 20px;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
   }
   
   @media only screen and (max-width: 720px) {
