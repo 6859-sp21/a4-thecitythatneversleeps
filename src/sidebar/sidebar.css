@@ -20,6 +20,7 @@
   #header .pro-sidebar {
     width: 100%;
     min-width: 100%;
+    /* margin: 50px; */
   }
   #header .pro-sidebar.collapsed {
     width: 80px;
@@ -59,6 +60,16 @@
   }
   #header .logo {
     padding: 20px;
+  }
+
+  #header .space {
+    padding: 20px;
+  }
+
+  #header .bottom-space {
+    position: absolute;
+    top: 755px;
+    left: 20px;
   }
   
   @media only screen and (max-width: 720px) {

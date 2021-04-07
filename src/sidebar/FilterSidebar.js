@@ -47,27 +47,41 @@ class FilterSideBar extends React.Component {
             {/* collapsed props to change menu size using menucollapse state */}
           <ProSidebar collapsed={this.state.menuCollapse}>
             <SidebarHeader>
-            <div className="logotext">
+              <div className="logotext">
                 {/* small and big change using menucollapse state */}
                 <p>{this.state.menuCollapse ? "A4" : "The City That Never Sleeps"}</p>
               </div>
               <div className="closemenu" onClick={this.menuIconClick}>
                   {/* changing menu collapse icon on click */}
                 {this.state.menuCollapse ? (
-                  <FiArrowRightCircle/>
+                  <div className="space">
+                    <FiArrowRightCircle/>
+                  </div>
                 ) : (
-                  <FiArrowLeftCircle/>
+                  <div className="space">
+                    <FiArrowLeftCircle/>
+                  </div>
                 )}
               </div>
             </SidebarHeader>
-            <SidebarContent>
-              <div>
-                Filters
-              </div>
-            </SidebarContent>
-            <SidebarFooter>
-              Horne, Phu, Price
-            </SidebarFooter>
+            <div> 
+              {this.state.menuCollapse ? (
+                <div/>
+              ) : (
+                <div>
+                  <div className="space">
+                    <SidebarContent>
+                      Filters
+                    </SidebarContent>
+                  </div>
+                  <div className="bottom-space">
+                    <SidebarFooter>
+                      Horne, Phu, Price
+                    </SidebarFooter>
+                  </div>
+                </div>
+              )}
+            </div>
           </ProSidebar>
         </div>
       </>
