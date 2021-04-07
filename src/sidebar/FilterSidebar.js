@@ -1,30 +1,28 @@
 
 //import useState hook to create menu collapse state
 import React, { Component, useState } from "react";
-import Select from 'react-select'
-import makeAnimated from 'react-select/animated';
+// import makeAnimated from 'react-select/animated';
 
 //import react pro sidebar components
 import {
   ProSidebar,
-  Menu,
-  MenuItem,
   SidebarHeader,
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
 
 import Button from '@material-ui/core/Button';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import { green, purple, white, grey} from '@material-ui/core/colors';
-import amber from '@material-ui/core/colors/amber';
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
+import {amber, grey} from '@material-ui/core/colors';
+// import amber from '@material-ui/core/colors/amber';
 
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
 
 //import icons from react icons
-import { FaList, FaRegHeart } from "react-icons/fa";
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { RiPencilLine } from "react-icons/ri";
-import { BiCog } from "react-icons/bi";
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
@@ -37,11 +35,51 @@ const tStyle = { color: 'white' };
 const bStyle = { color: 'black' };
 const shade = amber[500];
 
+const customStyles = {
+  control: (base, state) => ({
+    ...base,
+    background: "white",
+    // match with the menu
+    borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+    // Overwrittes the different states of border
+    borderColor: state.isFocused ? lightYellow : "white",
+    // Removes weird border around container
+    boxShadow: state.isFocused ? null : null,
+    "&:hover": {
+      // Overwrittes the different states of border
+      borderColor: state.isFocused ? "red" : "blue"
+    }
+  }),
+  menu: base => ({
+    ...base,
+    // override border radius to match the box
+    borderRadius: 0,
+    // kill the gap
+    marginTop: 0
+  }),
+  menuList: base => ({
+    ...base,
+    // kill the white space on first and last option
+    padding: 0
+  })
+};
+
 const theme = createMuiTheme({
   palette: {
     primary: amber,
   },
 });
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -53,7 +91,7 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
-const animatedComponents = makeAnimated();
+// const animatedComponents = makeAnimated();
 
 const zipcode = "Incident Zip";
 const borough = "borough";
@@ -71,13 +109,16 @@ class FilterSideBar extends React.Component {
         neighborhood: [],
         location_type: [],
       }, 
+      // filterOptions: {},
     }
   }
 
-  MultiSelect(defaultValues, options, labelName){
+  MultiSelect = (defaultValues, options, labelName) => {
+    console.log(options)
+    console.log(defaultValues)
 
     let handleChange = (newValue, actionMeta) => {
-      this.setState({filters = {
+      this.setState({filters: {
         zipcode: zipcode == labelName? newValue: this.state.filters.zipcode,
         borough: borough == labelName? newValue: this.state.filters.borough,
         neighborhood: neighborhood == labelName? newValue: this.state.filters.neighborhood,
@@ -85,18 +126,21 @@ class FilterSideBar extends React.Component {
         }
       });
 
-      this.props.updateMapData(this.state.filters)
+      // this.props.updateMapData(this.state.filters)
     };
   
     return (
-      <Select
-        closeMenuOnSelect={false}
-        onChange={handleChange}
-        components={animatedComponents}
-        defaultValue={defaultValues}
-        isMulti
-        options={options}
-      />
+      <div className="tinyspace">
+        <Select
+          closeMenuOnSelect={false}
+          styles={customStyles}
+          onChange={handleChange}
+          // components={animatedComponents}
+          defaultValue={defaultValues}
+          isMulti
+          options={options}
+        />
+      </div>
     );
   }
 
@@ -106,6 +150,23 @@ class FilterSideBar extends React.Component {
   //     filters: JSON.parse(JSON.stringify(this.props.filterOptions))
   //   })
   // }
+  componentDidMount() {
+    // Initally all filters are selected
+    console.log(this.props.filterOptions)
+    this.setState({
+      filters: {
+        zipcode: this.props.filterOptions.zipcode.slice(), // make copy w/ slice
+        borough: this.props.filterOptions.borough.slice(),
+        neighborhood: this.props.filterOptions.neighborhood.slice(),
+        location_type: this.props.filterOptions.location_type.sl ice(),
+      }
+      // filters: JSON.parse(JSON.stringify(this.props.filterOptions)),
+    });
+
+    console.log("setting initial filters")
+    console.log(this.state.filters)
+    console.log("done setting")
+  }
 
   setMenuCollapse(value) {
     this.setState({
@@ -120,6 +181,50 @@ class FilterSideBar extends React.Component {
   onSubmit = () => {
     this.props.updateMapData(this.state.filters);
   }
+
+  getSidebarContent() {
+    return (
+      <div>
+        <div style = {tStyle}>Filters</div>
+        {this.MultiSelect(this.props.filterOptions[zipcode], this.state.filters[zipcode], zipcode)}
+        {this.MultiSelect(this.props.filterOptions[neighborhood], this.state.filters[neighborhood], neighborhood)}
+        {this.MultiSelect(this.props.filterOptions[borough], this.state.filters[borough], borough)}
+        {this.MultiSelect(this.props.filterOptions[location_type], this.state.filters[location_type], location_type)}
+        <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Filter</ColorButton>   
+      </div>
+    )
+  }
+
+  // // for single select field
+  // handleChangeSingle = (event) => {
+  //   let value = event.target.value;
+  //   let fieldName = event.target.id;
+
+  //   let currFilters = this.state.filters;
+  //   currFilters[fieldName] = [value];
+  //   this.setState({
+  //     filters: currFilters,
+  //   })
+  // }
+
+  // handleChangeMultiple = (event) => {
+  //   const {options} = event.target;
+  //   let fieldName = event.target.id;
+
+  //   var values = [];
+  //   for (let i = 0, l = options.length; i < l; i += 1) {
+  //     if (options[i].selected) {
+  //       values.push(options[i].value);
+  //     }
+  //   }
+
+  //   let currFilters = this.state.filters;
+  //   currFilters[fieldName] = values;
+
+  //   this.setState({
+  //     filters: currFilters,
+  //   })
+  // }
 
   render() {
     return (
@@ -157,19 +262,12 @@ class FilterSideBar extends React.Component {
                 )}
               </div>
             </SidebarHeader>
-            <div> 
-              {this.state.menuCollapse ? (
-                <div/>
-              ) : (
+            {!this.state.menuCollapse &&(
+              <div> 
                 <div>
                   <div className="space">
                     <SidebarContent>
-                      <div style = {tStyle}>Filters</div>
-                      {MultiSelect(this.props.filterOptions[zipcode], this.state.filters[zipcode], zipcode)}
-                      {MultiSelect(this.props.filterOptions[neighborhood], this.state.filters[neighborhood], neighborhood)}
-                      {MultiSelect(this.props.filterOptions[borough], this.state.filters[borough], borough)}
-                      {MultiSelect(this.props.filterOptions[location_type], this.state.filters[location_type], location_type)}
-                      <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Click me</ColorButton>
+                      {this.getSidebarContent()}
                     </SidebarContent>
                   </div>
                   <div className="bottom-space">
@@ -178,8 +276,8 @@ class FilterSideBar extends React.Component {
                     </SidebarFooter>
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </ProSidebar>
         </div>
       </>

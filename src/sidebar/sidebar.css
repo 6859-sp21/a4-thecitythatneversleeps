@@ -65,6 +65,10 @@
     padding: 20px;
   }
 
+  #header .tinyspace {
+    padding: 10px;
+  }
+
   #header .bottom-space {
     position: absolute;
     bottom: 0;
