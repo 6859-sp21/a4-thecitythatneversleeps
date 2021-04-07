@@ -1,6 +1,7 @@
 
 //import useState hook to create menu collapse state
 import React, { Component, useState } from "react";
+import filterData from "./../data/filterOptions";
 // import makeAnimated from 'react-select/animated';
 
 //import react pro sidebar components
@@ -91,6 +92,16 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
+function convert(stringArr) {
+  let res = [];
+
+  for (const s in stringArr){
+    res.push({value:s, label:s})
+  }
+
+  return res;
+}
+
 // const animatedComponents = makeAnimated();
 
 const zipcode = "Incident Zip";
@@ -103,19 +114,18 @@ class FilterSideBar extends React.Component {
     super(props);
     this.state = {
       menuCollapse: false,
-      filters: {
-        zipcode: [], // needs to contain {value: ... , label: ...}
-        borough: [],
-        neighborhood: [],
-        location_type: [],
-      }, 
-      // filterOptions: {},
+      filterOptions: convert(filterData.filterOptions),
+      filters: convert(filterData.filterOptions), 
     }
   }
 
   MultiSelect = (defaultValues, options, labelName) => {
-    console.log(options)
-    console.log(defaultValues)
+    console.log("options");
+    console.log(options);
+    console.log('default values');
+    console.log(defaultValues);
+    console.log("label name");
+    console.log(labelName);
 
     let handleChange = (newValue, actionMeta) => {
       this.setState({filters: {
@@ -144,28 +154,27 @@ class FilterSideBar extends React.Component {
     );
   }
 
-  // componentDidMount() {
-  //   // Initally all filters are selected
-  //   this.setState({
-  //     filters: JSON.parse(JSON.stringify(this.props.filterOptions))
-  //   })
-  // }
   componentDidMount() {
-    // Initally all filters are selected
-    console.log(this.props.filterOptions)
-    this.setState({
-      filters: {
-        zipcode: this.props.filterOptions.zipcode.slice(), // make copy w/ slice
-        borough: this.props.filterOptions.borough.slice(),
-        neighborhood: this.props.filterOptions.neighborhood.slice(),
-        location_type: this.props.filterOptions.location_type.sl ice(),
-      }
-      // filters: JSON.parse(JSON.stringify(this.props.filterOptions)),
-    });
+    // console.log(this.state.filterOptions)
+    // console.log(this.state.filters)
+  }
 
-    console.log("setting initial filters")
-    console.log(this.state.filters)
-    console.log("done setting")
+  componentDidMount() {
+  //   // Initally all filters are selected
+  //   console.log(this.props.filterOptions)
+  //   this.setState({
+  //     // filters: {
+  //     //   zipcode: this.props.filterOptions.zipcode.slice(), // make copy w/ slice
+  //     //   borough: this.props.filterOptions.borough.slice(),
+  //     //   neighborhood: this.props.filterOptions.neighborhood.slice(),
+  //     //   location_type: this.props.filterOptions.location_type.slice(),
+  //     // }
+  //     filters: JSON.parse(JSON.stringify(this.props.filterOptions)),
+  //   });
+
+  //   console.log("setting initial filters")
+  //   console.log(this.state.filters)
+  //   console.log("done setting")
   }
 
   setMenuCollapse(value) {
@@ -186,10 +195,10 @@ class FilterSideBar extends React.Component {
     return (
       <div>
         <div style = {tStyle}>Filters</div>
-        {this.MultiSelect(this.props.filterOptions[zipcode], this.state.filters[zipcode], zipcode)}
-        {this.MultiSelect(this.props.filterOptions[neighborhood], this.state.filters[neighborhood], neighborhood)}
-        {this.MultiSelect(this.props.filterOptions[borough], this.state.filters[borough], borough)}
-        {this.MultiSelect(this.props.filterOptions[location_type], this.state.filters[location_type], location_type)}
+        {this.MultiSelect(this.state.filters[zipcode], this.state.filterOptions[zipcode],  zipcode)}
+        {this.MultiSelect(this.state.filters[neighborhood], this.state.filterOptions[neighborhood], neighborhood)}
+        {this.MultiSelect(this.state.filters[borough], this.state.filterOptions[borough], borough)}
+        {this.MultiSelect(this.state.filters[location_type], this.state.filterOptions[location_type], location_type)}
         <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Filter</ColorButton>   
       </div>
     )
