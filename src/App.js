@@ -6,6 +6,7 @@ import data2 from "./data/mapData2";
 import data3 from "./data/mapData3";
 
 import BaseMap from "./map/BaseMap";
+import FilterSidebar from "./sidebar/FilterSidebar";
 
 class App extends React.Component {
   constructor(props) {
@@ -15,8 +16,21 @@ class App extends React.Component {
       startDatetime: 'January 1, 2019, 00:00:00 AM',
       endDatetime: 'March 31, 2021, 11:59:59 PM',
       // add any other default filter parameters here
+      openSidebar: false,
     }
   }
+
+  handleDrawerOpen = () => {
+    this.setState({
+      openSidebar: true
+    })
+  };
+
+  handleDrawerClose = () => {
+    this.setState({
+      openSidebar: false
+    })
+  };
 
   // gets map data
   getMapData = () => {
@@ -46,8 +60,17 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <BaseMap mapData={this.state.mapData}/>
-        {/* <FilterSidebar updateMapData={this.updateMapData} mapData={this.state.mapData}/> */}
+        <BaseMap 
+          mapData={this.state.mapData}
+        >
+        </BaseMap>
+      
+        <FilterSidebar 
+          updateMapData={this.updateMapData} 
+          mapData={this.state.mapData} 
+          open={this.state.openSidebar}
+        >
+        </FilterSidebar>
       </div>
     );
   }
