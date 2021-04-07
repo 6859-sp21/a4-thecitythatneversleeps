@@ -1,6 +1,8 @@
 
 //import useState hook to create menu collapse state
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
 
 //import react pro sidebar components
 import {
@@ -51,18 +53,51 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button);
 
+const animatedComponents = makeAnimated();
+
+const zipcode = "Incident Zip";
+const borough = "borough";
+const neighborhood = "neighborhood";
+const location_type= "Location Type";
+
 class FilterSideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       menuCollapse: false,
       filters: {
-        "Incident Zip": [],
-        "borough": [],
-        "neighborhood": [],
-        "Location Type": [],
+        zipcode: [], // needs to contain {value: ... , label: ...}
+        borough: [],
+        neighborhood: [],
+        location_type: [],
       }, 
     }
+  }
+
+  MultiSelect(defaultValues, options, labelName){
+
+    let handleChange = (newValue, actionMeta) => {
+      this.setState({filters = {
+        zipcode: zipcode == labelName? newValue: this.state.filters.zipcode,
+        borough: borough == labelName? newValue: this.state.filters.borough,
+        neighborhood: neighborhood == labelName? newValue: this.state.filters.neighborhood,
+        location_type: location_type == labelName? newValue: this.state.filters.location_type,
+        }
+      });
+
+      this.props.updateMapData(this.state.filters)
+    };
+  
+    return (
+      <Select
+        closeMenuOnSelect={false}
+        onChange={handleChange}
+        components={animatedComponents}
+        defaultValue={defaultValues}
+        isMulti
+        options={options}
+      />
+    );
   }
 
   // componentDidMount() {
@@ -130,6 +165,10 @@ class FilterSideBar extends React.Component {
                   <div className="space">
                     <SidebarContent>
                       <div style = {tStyle}>Filters</div>
+                      {MultiSelect(this.props.filterOptions[zipcode], this.state.filters[zipcode], zipcode)}
+                      {MultiSelect(this.props.filterOptions[neighborhood], this.state.filters[neighborhood], neighborhood)}
+                      {MultiSelect(this.props.filterOptions[borough], this.state.filters[borough], borough)}
+                      {MultiSelect(this.props.filterOptions[location_type], this.state.filters[location_type], location_type)}
                       <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Click me</ColorButton>
                     </SidebarContent>
                   </div>
