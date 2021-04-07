@@ -22,6 +22,10 @@ import { BiCog } from "react-icons/bi";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./sidebar.css";
 
+const hStyle = { color: '#ffdd99', height: '20px' };
+const tStyle = { color: 'white' };
+const bStyle = { color: 'black' };
+
 class FilterSideBar extends React.Component {
   constructor(props) {
     super(props);
@@ -45,21 +49,33 @@ class FilterSideBar extends React.Component {
       <>
         <div id="header">
             {/* collapsed props to change menu size using menucollapse state */}
-          <ProSidebar collapsed={this.state.menuCollapse}>
+          <ProSidebar collapsed={this.state.menuCollapse} style = {bStyle}>
             <SidebarHeader>
               <div className="logotext">
                 {/* small and big change using menucollapse state */}
-                <p>{this.state.menuCollapse ? "A4" : "The City That Never Sleeps"}</p>
+                <p>{this.state.menuCollapse ? (
+                  <div style={hStyle}>
+                    A4
+                  </div>
+                ) : (
+                  <div style={hStyle}>
+                    The City that Never Sleeps
+                  </div>
+                )}</p>
               </div>
               <div className="closemenu" onClick={this.menuIconClick}>
                   {/* changing menu collapse icon on click */}
                 {this.state.menuCollapse ? (
                   <div className="space">
-                    <FiArrowRightCircle/>
+                    <FiArrowRightCircle
+                      color = {'#ffdd99'}
+                    />
                   </div>
                 ) : (
                   <div className="space">
-                    <FiArrowLeftCircle/>
+                    <FiArrowLeftCircle
+                      color = {'#ffdd99'}
+                    />
                   </div>
                 )}
               </div>
@@ -71,12 +87,12 @@ class FilterSideBar extends React.Component {
                 <div>
                   <div className="space">
                     <SidebarContent>
-                      Filters
+                      <div style = {tStyle}>Filters</div>
                     </SidebarContent>
                   </div>
                   <div className="bottom-space">
                     <SidebarFooter>
-                      Horne, Phu, Price
+                    <div style = {tStyle}>Horne, Phu, Price</div>
                     </SidebarFooter>
                   </div>
                 </div>
