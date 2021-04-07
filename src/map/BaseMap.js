@@ -1,48 +1,22 @@
 import React from 'react';
-
-import DeckGL from '@deck.gl/react';
-import {HexagonLayer, GridLayer, IconLayer, ScatterplotLayer} from '@deck.gl/layers';
 import {StaticMap} from 'react-map-gl';
+import DeckGL from '@deck.gl/react';
+import {HeatmapLayer} from '@deck.gl/aggregation-layers';
 
 const config = {
   mapboxAccessToken: "pk.eyJ1IjoibWVsb2R5cGh1IiwiYSI6ImNrbjJlbms0eDE2eTkyb21vb3RpOTJtYmoifQ.KyZkOMUbvjs8btwGKqNyjg" 
-  //process.env.MapboxAccessToken
 }
 
-// determines size of circles
-// TODO: choose our own sizing
-const ICON_MAPPING = {
-  marker: {x: 0, y: 0, width: 128, height: 128, mask: true}
-};
+const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json';
 
-// Viewport settings
-// We start in NYC, Manhattan 
 const INITIAL_VIEW_STATE = {
-  longitude: -74.0060,
-  latitude: 40.7128,
-  zoom: 13,
-  pitch: 0,
-  bearing: 0
-};
-
-// // Data to be used by the LineLayer or other Layers
-// // TODO: Fill in data from csv->json
-// const json_data = {
-//   0: {
-//       coordinates:[-73.9857, 40.7484]
-//     },
-//   1: {
-//       coordinates: [-73.9665, 40.7812]
-//   }
-// };
-
-// // Filling in our data for the IconLayer
-// const iconData = []
-
-// for (const obj in json_data) {
-//   const loc = obj.coordinates;
-//   iconData.push({coordinates: loc, exits: 9})
-// }
+    longitude: -73.75,
+    latitude: 40.73,
+    zoom: 9,
+    maxZoom: 16,
+    pitch: 0,
+    bearing: 0
+  };  
 
 // DeckGL react component
 class BaseMap extends React.Component {
@@ -55,42 +29,35 @@ class BaseMap extends React.Component {
         }
     }
 
-    // updates the general datasets from new props
     updateData(mapData) {
-        // create icon data
-        let iconData = [];
-        for (const obj in mapData) {
-            const loc = obj.coordinates;
-            iconData.push({coordinates: loc, exits:9});
-        }
-
-        // recreate the layers
-        let layers = [
-            new IconLayer({
-              id: 'icon-layer',
-              iconData,
-              pickable: true,
-              // iconAtlas and iconMapping are required
-              // getIcon: return a string
-              // TODO: choose our own icon
-              iconAtlas: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png',
-              iconMapping: ICON_MAPPING,
-              getIcon: d => 'marker',
-              sizeScale: 15,
-              getPosition: d => d.coordinates,
-              getSize: d => 5,
-              getColor: d => [Math.sqrt(d.exits), 140, 0] 
-            })
-        ];
-
-        console.log(mapData[2]);
-
-        // update the state of the component
         this.setState({
-            mapData: mapData,
-            iconData: iconData,
-            layers: layers,
-        });
+            mapData: mapData
+        })
+    }
+
+    // updates the general datasets from new props
+    _generateLayer() {
+        var data = [];
+
+        for (const key in this.state.mapData) {
+          let datapoint = this.state.mapData[key];
+          let loc = datapoint["Location"];
+          let arrLoc = loc.slice(1, loc.length - 1).split(", ");
+    
+          if (arrLoc && arrLoc.length == 2) {
+            data.push({coordinates: [parseFloat(arrLoc[0]), parseFloat(arrLoc[1])], weight:1});
+          }
+        }
+    
+        const layer = new HeatmapLayer({
+            id: 'heatmapLayer',
+            data,
+            getPosition: d => d.coordinates,
+            getWeight: d => d.weight,
+            aggregation: 'SUM'
+          });
+        
+        return [layer];
     }
 
     // when the props change (ie. global filters should affect the map)
@@ -107,11 +74,13 @@ class BaseMap extends React.Component {
         return(
             <div>
                 <DeckGL
-                initialViewState={INITIAL_VIEW_STATE}
-                controller={true}
-                layers={this.state.layers}
+                    className={'BYE'}
+                    initialViewState={INITIAL_VIEW_STATE}
+                    controller={true}
+                    layers={this._generateLayer()}
+                    viewState={this.props.viewState}
                 >
-                <StaticMap mapboxApiAccessToken={config.mapboxAccessToken} />
+                <StaticMap mapStyle={MAP_STYLE} mapboxApiAccessToken={config.mapboxAccessToken} />
                 </DeckGL>
             </div>
         );
@@ -119,5 +88,18 @@ class BaseMap extends React.Component {
 }
 
 export default BaseMap;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
