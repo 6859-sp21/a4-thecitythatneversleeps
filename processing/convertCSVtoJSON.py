@@ -3,10 +3,10 @@ import json
  
 # Decide the two file paths according to your
 # computer system
-csvFilePath = r'../data/MCDPleaseWork.csv'
-jsonFilePath1 = r'../data/FinalLoudMusicComplaintsData1.json'
-jsonFilePath2 = r'../data/FinalLoudMusicComplaintsData2.json'
-jsonFilePath3 = r'../data/FinalLoudMusicComplaintsData3.json'
+csvFilePath = r'../src/data/MCDPleaseWork.csv'
+jsonFilePath1 = r'../src/data/mapData1.json'
+jsonFilePath2 = r'../src/data/mapData2.json'
+jsonFilePath3 = r'../src/data/mapData3.json'
 
 # Function to convert a CSV to JSON
 # Takes the file paths as arguments
@@ -45,13 +45,13 @@ def make_json():
     # Open a json writer, and use the json.dumps()
     # function to dump data
     with open(jsonFilePath1, 'w', encoding='utf-8') as jsonf:
-        jsonf.write(json.dumps(data1, indent=4))
+        jsonf.write(json.dumps({'mapData1': data1}, indent=4))
     
     with open(jsonFilePath2, 'w', encoding='utf-8') as jsonf:
-        jsonf.write(json.dumps(data2, indent=4))
+        jsonf.write(json.dumps({'mapData2': data2}, indent=4))
 
     with open(jsonFilePath3, 'w', encoding='utf-8') as jsonf:
-        jsonf.write(json.dumps(data3, indent=4))
+        jsonf.write(json.dumps({'mapData3': data3}, indent=4))
          
 # Driver Code
 
