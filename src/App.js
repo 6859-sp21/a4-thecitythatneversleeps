@@ -5,10 +5,7 @@ import filterData from "./data/filterOptions";
 
 import BaseMap from "./map/BaseMap";
 import FilterSidebar from "./sidebar/FilterSidebar";
-import DateSlider from "./slider/Slider";
 import LoadingModal from "./modal/LoadingModal";
-
-const fieldNames = ['Location Type', 'borough', 'neighborhood', 'Incident Zip'];
 
 const dataURL = 'https://thecitythatneversleep.s3.us-east-2.amazonaws.com/allMapData.json';
 
@@ -67,10 +64,7 @@ class App extends React.Component {
       })
   }
 
-  // for filtering data, called by FilterSidebar.js
-  // filters = {'fieldName': [all selected options]}
   updateMapData = (dateRange, selectedFilters) => {
-
     console.log("date range: ", dateRange);
     console.log("selected Filters: ", selectedFilters);
     
@@ -111,8 +105,7 @@ class App extends React.Component {
       filteredData: filteredData
     })
   }
-  
-  // when the component is first created
+
   componentDidMount() {
     this.getMapData();
 
@@ -136,10 +129,6 @@ class App extends React.Component {
             showModal={this.showModal}
           >
           </FilterSidebar>
-        {/* <div style={{zIndex: 10}}>
-          <DateSlider> 
-          </DateSlider>
-        </div> */}
         <LoadingModal show={this.state.show}/>
       </div>
     );
