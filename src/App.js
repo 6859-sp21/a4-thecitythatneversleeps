@@ -46,6 +46,7 @@ class App extends React.Component {
       .then(response => response.json())
       .then((mapData) => {
         console.log("success!");
+        console.log(mapData[0]);
         this.setState({
           mapData: mapData,
           filteredData: JSON.parse(JSON.stringify(mapData))
