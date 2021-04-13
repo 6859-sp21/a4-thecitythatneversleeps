@@ -38,8 +38,8 @@ const mediumYellow = "#ffc34b";
 const mediumGrey = '#2b2d2f';
 
 const h2Style = { color: mediumYellow, height: '20px' }
-const h3Style = { color: 'white', height: '10px' }
-const tStyle = { color: lightYellow };
+const h3Style = { color: 'white', height: '20px' }
+const tStyle = { color: "white" };
 const bStyle = { color: 'black' };
 const toggleStyle = {paddingTop: '15px', paddingBottom: '15px'}
 const sliderStyle = {paddingLeft: '15px', paddingRight: '15px', paddingBottom: '15px'}
@@ -128,10 +128,10 @@ class FilterSideBar extends React.Component {
             onChange={this.switchMapView}
             aria-label="map view"
           >
-            <ToggleButton value={0} aria-label="heat map" style={{backgroundColor: 'white'}}>
+            <ToggleButton value={0} aria-label="heat map" style={{backgroundColor: mediumGrey, color:lightYellow}}>
               Heat Map
             </ToggleButton>
-            <ToggleButton value={1} aria-label="hexagon map" style={{backgroundColor: 'white'}}>
+            <ToggleButton value={1} aria-label="hexagon map" style={{backgroundColor: mediumGrey, color:lightYellow}}>
               Hexagon Map
             </ToggleButton>
           </ToggleButtonGroup>
@@ -164,12 +164,12 @@ class FilterSideBar extends React.Component {
                 renderValue={(selected) => selected.join(', ')}
                 MenuProps={MenuProps}
                 style={{
-                  backgroundColor: 'white',
+                  backgroundColor: mediumGrey,
+                  color: lightYellow,
                   paddingLeft: '10px', 
                   width:'260px' , 
                   paddingRight: '5px', 
                   borderRadius: '5px',
-                  color: mediumGrey,
                 }}
               >
                 {fieldOptions.map((name) => {
@@ -200,9 +200,9 @@ class FilterSideBar extends React.Component {
         </div>
         <div style={{paddingTop:'0px'}}>
           <Button variant="contained" onClick={this.onSubmit} style={{
-            color: "default", // changed from mediumGrey
+            color: mediumYellow, // changed from default
             size: "small",
-            backgroundColor: mediumYellow,
+            backgroundColor: mediumGrey,
           }}>Apply Filters</Button>   
         </div>
       </div>

@@ -16,18 +16,18 @@ const muiTheme = createMuiTheme({
         left: '0%',
         '& *': {
           background: 'black',
-          color: lightYellow,
+          color: mediumYellow,
         },
       },
       thumb:{
-        color: lightYellow,
+        color: mediumYellow,
       },
       track: {
-        color: lightYellow
+        color: mediumYellow
       },
       rail: {
         opacity:'90%',
-        color: mediumYellow
+        color: lightYellow
       },
       markLabelActive: { // the text below
         fontSize: "13px",
