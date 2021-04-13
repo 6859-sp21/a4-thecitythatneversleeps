@@ -138,7 +138,7 @@ class FilterSideBar extends React.Component {
                 multiple
                 value={this.state.selectedFilters[fieldName]}
                 onChange={this.handleChangeMultiple}
-                input={<Input id="select-multiple-chip" />}
+                input={<Input id={fieldName} />}
                 renderValue={(selected) => selected.join(', ')}
                 MenuProps={MenuProps}
                 style={{
