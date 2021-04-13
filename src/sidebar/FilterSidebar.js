@@ -120,12 +120,6 @@ class FilterSideBar extends React.Component {
   }
 
   MultiSelect = (defaultValues, options, labelName) => {
-    console.log("options");
-    console.log(options);
-    console.log('default values');
-    console.log(defaultValues);
-    console.log("label name");
-    console.log(labelName);
 
     let handleChange = (newValue, actionMeta) => {
       this.setState({filters: {

@@ -4,18 +4,14 @@ import json
 # Decide the two file paths according to your
 # computer system
 csvFilePath = r'../src/data/MCDPleaseWork.csv'
-jsonFilePath1 = r'../src/data/mapData1.json'
-jsonFilePath2 = r'../src/data/mapData2.json'
-jsonFilePath3 = r'../src/data/mapData3.json'
+jsonFilePath1 = r'../src/data/allMapData.json'
 
 # Function to convert a CSV to JSON
 # Takes the file paths as arguments
 def make_json():
      
-    # create a dictionary
-    data1 = {}
-    data2 = {}
-    data3 = {}
+    # create a list
+    data = []
      
     # Open a csv reader called DictReader
     with open(csvFilePath, encoding='utf-8') as csvf:
@@ -23,7 +19,6 @@ def make_json():
          
         # Convert each row into a dictionary
         # and add it to data
-        i = 0
         for rows in csvReader:
             del rows[""]
             
@@ -34,25 +29,12 @@ def make_json():
 
                 # Assuming a column named 'No' to
                 # be the primary key
-                if i % 3 == 0:
-                    data1[i] = rows
-                elif i % 3 == 1:
-                    data2[i] = rows
-                else:
-                    data3[i] = rows
-
-                i+=1
+                data.append(rows)
  
     # Open a json writer, and use the json.dumps()
     # function to dump data
     with open(jsonFilePath1, 'w', encoding='utf-8') as jsonf:
-        jsonf.write(json.dumps({'mapData1': data1}, indent=4))
-    
-    with open(jsonFilePath2, 'w', encoding='utf-8') as jsonf:
-        jsonf.write(json.dumps({'mapData2': data2}, indent=4))
-
-    with open(jsonFilePath3, 'w', encoding='utf-8') as jsonf:
-        jsonf.write(json.dumps({'mapData3': data3}, indent=4))
+        jsonf.write(json.dumps(data, indent=4))
          
 # Driver Code
 

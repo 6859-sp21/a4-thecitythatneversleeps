@@ -1,9 +1,6 @@
 import React from 'react';
 import './App.css';
 
-import data1 from "./data/mapData1";
-import data2 from "./data/mapData2";
-import data3 from "./data/mapData3";
 import filterData from "./data/filterOptions";
 
 import BaseMap from "./map/BaseMap";
@@ -12,12 +9,14 @@ import DateSlider from "./slider/Slider";
 
 const fieldNames = ['Location Type', 'borough', 'neighborhood', 'Incident Zip'];
 
+const dataURL = 'https://thecitythatneversleep.s3.us-east-2.amazonaws.com/allMapData.json';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapData: {},
-      filteredData: {},
+      mapData: [],
+      filteredData: [],
       layers: [],
       iconData: [],
       startDatetime: 'January 1, 2019, 00:00:00 AM',
@@ -42,13 +41,20 @@ class App extends React.Component {
 
   // gets map data
   getMapData = () => {
-    var mapData = {
-      ...data1.mapData1,
-      ...data2.mapData2,
-      ...data3.mapData3,
-    };
-
-    return mapData;
+    console.log("fetching data");
+    fetch(dataURL)
+      .then(response => response.json())
+      .then((mapData) => {
+        console.log("success!");
+        this.setState({
+          mapData: mapData,
+          filteredData: JSON.parse(JSON.stringify(mapData))
+        })
+      })
+      .catch((error) => {
+        // handle your errors here
+        console.error(error);
+      })
   }
 
   // for filtering data, called by FilterSidebar.js
@@ -58,10 +64,9 @@ class App extends React.Component {
     // for every data point
     
     let mapData = this.state.mapData;
-    var filteredData = {};
+    var filteredData = [];
 
-    for (const key in mapData) {
-      let datapoint = mapData[key];
+    for (const datapoint of mapData) {
       let shouldInclude = true;
 
       // check all filters
@@ -75,7 +80,7 @@ class App extends React.Component {
         }
       }
       if (shouldInclude) {
-        filteredData[key] = JSON.parse(JSON.stringify(datapoint));
+        filteredData.push(JSON.parse(JSON.stringify(datapoint)));
       }
     }
 
@@ -86,12 +91,10 @@ class App extends React.Component {
   
   // when the component is first created
   componentDidMount() {
-    var mapData = this.getMapData();
+    this.getMapData();
 
     this.setState({
-      mapData: mapData,
       filterOptions: filterData.filterOptions,
-      filteredData: JSON.parse(JSON.stringify(mapData))
     })
   }
 
