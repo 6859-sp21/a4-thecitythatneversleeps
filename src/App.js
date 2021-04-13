@@ -60,7 +60,7 @@ class App extends React.Component {
 
   // for filtering data, called by FilterSidebar.js
   // filters = {'fieldName': [all selected options]}
-  updateMapData = (filters) => {
+  updateMapData = (selectedFilters) => {
     // TODO clip the dataset by the start and end datetimes
     // for every data point
     
@@ -71,8 +71,8 @@ class App extends React.Component {
       let shouldInclude = true;
 
       // check all filters
-      for (const field in filters) {
-        let selectedOptions = filters[field];
+      for (const field in selectedFilters) {
+        let selectedOptions = selectedFilters[field];
         let value = datapoint[field];
 
         // once it doesn't match one of the filters, drop it
