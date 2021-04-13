@@ -44,7 +44,7 @@ class BaseMap extends React.Component {
           let loc = datapoint["Location"];
           let arrLoc = loc.slice(1, loc.length - 1).split(", ");
     
-          if (arrLoc && arrLoc.length == 2) {
+          if (arrLoc && arrLoc.length === 2) {
             data.push({coordinates: [parseFloat(arrLoc[0]), parseFloat(arrLoc[1])], weight:1});
           }
         }

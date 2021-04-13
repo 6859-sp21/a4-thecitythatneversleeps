@@ -26,9 +26,6 @@ const body = (
 );
 
 export default class LoadingModal extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (

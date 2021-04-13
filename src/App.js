@@ -7,6 +7,8 @@ import BaseMap from "./map/BaseMap";
 import FilterSidebar from "./sidebar/FilterSidebar";
 import LoadingModal from "./modal/LoadingModal";
 
+// const fieldNames = ['Location Type', 'borough', 'neighborhood', 'Incident Zip'];
+
 const dataURL = 'https://thecitythatneversleep.s3.us-east-2.amazonaws.com/allMapData.json';
 
 class App extends React.Component {

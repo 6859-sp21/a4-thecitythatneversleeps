@@ -1,6 +1,6 @@
 
 //import useState hook to create menu collapse state
-import React, { Component, useState } from "react";
+import React /*,{ Component, useState }*/ from "react";
 import filterData from "./../data/filterOptions";
 // import makeAnimated from 'react-select/animated';
 import DateSlider from "./../slider/Slider";
@@ -14,8 +14,8 @@ import {
 } from "react-pro-sidebar";
 
 import Button from '@material-ui/core/Button';
-import {createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-import {amber, grey, blue} from '@material-ui/core/colors';
+// import {createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
+// import {amber, grey, blue} from '@material-ui/core/colors';
 
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
@@ -25,35 +25,35 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 
 //import icons from react icons
-import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { /*FiHome, FiLogOut,*/ FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./sidebar.css";
-import { amber500 } from "material-ui/styles/colors";
 
 const lightYellow = '#ffdd99';
 const mediumYellow = "#ffc34b";
 const mediumGrey = '#2b2d2f';
-const hStyle = { color: 'white', height: '20px' };
+// const hStyle = { position: 'relative', left:'10px', top:'5px', padding:'5px'};
+// const hTextStyle = { color: 'white', height: '20px'}
 const h2Style = { color: mediumYellow, height: '20px' }
 const h3Style = { color: 'white', height: '10px' }
 const tStyle = { color: lightYellow };
 const bStyle = { color: 'black' };
 
-const styles = {
-  formControl: {
-    minWidth: 120,
-    maxWidth: 300,
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: 2,
-  },
-};
+// const styles = {
+//   formControl: {
+//     minWidth: 120,
+//     maxWidth: 300,
+//   },
+//   chips: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//   },
+//   chip: {
+//     margin: 2,
+//   },
+// };
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -104,9 +104,9 @@ class FilterSideBar extends React.Component {
   }
 
   prettifyText = (fieldName) => {
-    if (fieldName == "borough"){
+    if (fieldName === "borough"){
       return "Borough";
-    } else if (fieldName == "neighborhood") {
+    } else if (fieldName === "neighborhood") {
       return "Neighborhood";
     } else {
       return fieldName;
@@ -122,24 +122,31 @@ class FilterSideBar extends React.Component {
   getSidebarContent() {
     return (
       <div>
-        <div style={h2Style}>
+        <div style={h2Style} key="filter header">
             Filters
         </div>
         <br/>
         {fieldNames.map(fieldName => {
           const fieldOptions = this.state.filterOptions[fieldName];
           return(
-            <FormControl className={styles.formControl}>
+            <FormControl 
+              style={{
+              minWidth: 120,
+              maxWidth: 300
+              }} 
+              key = {fieldName+'-form'}
+              id={fieldName+'-form'}>
               <div style = {tStyle}>{this.prettifyText(fieldName)}</div>
               <br/>
               <Select
                 labelId={"multiple-select-"+fieldName}
                 id={fieldName}
+                key={fieldName}
                 name={fieldName}
                 multiple
                 value={this.state.selectedFilters[fieldName]}
                 onChange={this.handleChangeMultiple}
-                input={<Input id="select-multiple-chip" />}
+                input={<Input id={fieldName} key={fieldName+'-input'} />}
                 renderValue={(selected) => selected.join(', ')}
                 MenuProps={MenuProps}
                 style={{
@@ -156,9 +163,9 @@ class FilterSideBar extends React.Component {
                   <MenuItem key={name} value={name} >
                     <Checkbox 
                       checked={this.state.selectedFilters[fieldName].indexOf(name) > -1} 
-                      color={mediumGrey}
+                      color="default" // changed from mediumGrey
                     />
-                    <ListItemText primary={name} />
+                    <ListItemText key={name+'-list-item-text'} primary={name} />
                   </MenuItem>
                   )
                 })}
@@ -176,7 +183,7 @@ class FilterSideBar extends React.Component {
         />
         <div style={{paddingTop:'10px'}}>
           <Button variant="contained" onClick={this.onSubmit} style={{
-            color: mediumGrey,
+            color: "default", // changed from mediumGrey
             backgroundColor: mediumYellow,
           }}>Apply Filters</Button>   
         </div>
@@ -204,17 +211,9 @@ class FilterSideBar extends React.Component {
             {/* collapsed props to change menu size using menucollapse state */}
           <ProSidebar collapsed={this.state.menuCollapse} style = {bStyle}>
             <SidebarHeader>
-              <div className="logotext">
+              <div  className='logotext'>
                 {/* small and big change using menucollapse state */}
-                <p>{this.state.menuCollapse ? (
-                  <div style={hStyle}>
-                    A4
-                  </div>
-                ) : (
-                  <div style={hStyle}>
-                    The City that Never Sleeps
-                  </div>
-                )}</p>
+                <p>{this.state.menuCollapse ? 'A4' : 'The City that Never Sleeps'}</p>
               </div>
               <div className="closemenu" onClick={this.menuIconClick}>
                   {/* changing menu collapse icon on click */}
