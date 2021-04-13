@@ -34,7 +34,8 @@ import "./sidebar.css";
 const lightYellow = '#ffdd99';
 const mediumYellow = "#ffc34b";
 const mediumGrey = '#2b2d2f';
-const hStyle = { color: 'white', height: '20px' };
+const hStyle = { position: 'relative', left:'10px', top:'5px', padding:'5px'};
+const hTextStyle = { color: 'white', height: '20px'}
 const h2Style = { color: mediumYellow, height: '20px' }
 const h3Style = { color: 'white', height: '10px' }
 const tStyle = { color: lightYellow };
@@ -203,17 +204,9 @@ class FilterSideBar extends React.Component {
             {/* collapsed props to change menu size using menucollapse state */}
           <ProSidebar collapsed={this.state.menuCollapse} style = {bStyle}>
             <SidebarHeader>
-              <div className="logotext">
+              <div  className='logotext'>
                 {/* small and big change using menucollapse state */}
-                <p>{this.state.menuCollapse ? (
-                  <div style={hStyle}>
-                    A4
-                  </div>
-                ) : (
-                  <div style={hStyle}>
-                    The City that Never Sleeps
-                  </div>
-                )}</p>
+                <p>{this.state.menuCollapse ? 'A4' : 'The City that Never Sleeps'}</p>
               </div>
               <div className="closemenu" onClick={this.menuIconClick}>
                   {/* changing menu collapse icon on click */}
