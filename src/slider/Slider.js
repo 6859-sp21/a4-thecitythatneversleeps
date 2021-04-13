@@ -5,9 +5,11 @@ import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
+const hStyle = { color: '#ffdd99', height: '20px', padding:'10px' };
+
 const AirbnbSlider = withStyles({
   root: {
-    color: '#3a8589',
+    color: '#ffc34b',
     height: 3,
     padding: '13px 0',
   },
@@ -15,7 +17,7 @@ const AirbnbSlider = withStyles({
     height: 27,
     width: 27,
     backgroundColor: '#fff',
-    border: '1px solid currentColor',
+    border: '2px solid #ffc34b',
     marginTop: -12,
     marginLeft: -13,
     boxShadow: '#ebebeb 0 2px 2px',
@@ -26,7 +28,7 @@ const AirbnbSlider = withStyles({
       // display: inline-block !important;
       height: 9,
       width: 1,
-      backgroundColor: 'currentColor',
+      backgroundColor: '#ffc34b',
       marginLeft: 1,
       marginRight: 1,
     },
@@ -43,6 +45,13 @@ const AirbnbSlider = withStyles({
 })(Slider);
 
 class DateSlider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: null,
+      endDate: null,
+    }
+  }
   
   getThumbComponent(props) {
     return (
@@ -57,7 +66,6 @@ class DateSlider extends React.Component {
   render() {
     return (
       <div style={{zIndex: 1}}>
-        <Typography gutterBottom>Select a Date Range</Typography>
         <AirbnbSlider
           ThumbComponent={this.getThumbComponent}
           getAriaLabel={(index) => (index === 0 ? 'Start Month' : 'End Month')}

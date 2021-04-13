@@ -3,6 +3,7 @@
 import React, { Component, useState } from "react";
 import filterData from "./../data/filterOptions";
 // import makeAnimated from 'react-select/animated';
+import DateSlider from "./../slider/Slider";
 
 //import react pro sidebar components
 import {
@@ -31,7 +32,7 @@ import "./sidebar.css";
 import { amber500 } from "material-ui/styles/colors";
 
 const lightYellow = '#ffdd99';
-const hStyle = { color: '#ffdd99', height: '20px' };
+const hStyle = { color: '#ffdd99', height: '20px', padding:'5px' };
 const tStyle = { color: 'white' };
 const bStyle = { color: 'black' };
 const shade = amber[500];
@@ -148,6 +149,9 @@ class FilterSideBar extends React.Component {
     );
   }
 
+  // TODO: add slider object here to make our lives easier
+  // update the state (add start and end date date times??? or just strings?)
+
   componentDidMount() {
     // console.log(this.state.filterOptions)
     // console.log(this.state.filters)
@@ -182,6 +186,7 @@ class FilterSideBar extends React.Component {
   }
 
   onSubmit = () => {
+    // TODO: we also want to update the date range
     this.props.updateMapData(this.state.filters);
   }
 
@@ -189,11 +194,20 @@ class FilterSideBar extends React.Component {
     return (
       <div>
         <div style = {tStyle}>Filters</div>
+        <div style={hStyle}>
+            Select Noise Complaint Types
+        </div>
         {this.MultiSelect(this.state.filters[zipcode], this.state.filterOptions[zipcode],  zipcode)}
         {this.MultiSelect(this.state.filters[neighborhood], this.state.filterOptions[neighborhood], neighborhood)}
         {this.MultiSelect(this.state.filters[borough], this.state.filterOptions[borough], borough)}
         {this.MultiSelect(this.state.filters[location_type], this.state.filterOptions[location_type], location_type)}
-        <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Filter</ColorButton>   
+        <div style={hStyle}>
+            Select a Date Range
+        </div>
+        <DateSlider/>
+        <div style={{paddingTop:'10px'}}>
+          <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Filter</ColorButton>   
+        </div>
       </div>
     )
   }
