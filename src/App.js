@@ -2,12 +2,11 @@ import React from 'react';
 import './App.css';
 
 import filterData from "./data/filterOptions";
-
-import BaseMap from "./map/BaseMap";
+import HeatMap from "./maps/HeatMap";
 import FilterSidebar from "./sidebar/FilterSidebar";
 import LoadingModal from "./modal/LoadingModal";
 
-// const fieldNames = ['Location Type', 'borough', 'neighborhood', 'Incident Zip'];
+
 
 const dataURL = 'https://thecitythatneversleep.s3.us-east-2.amazonaws.com/allMapData.json';
 
@@ -16,6 +15,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       show: true,
+      mapView: 0, // heat map = 0, hexagon map = 1
       mapData: [],
       filteredData: [],
       layers: [],
@@ -66,10 +66,13 @@ class App extends React.Component {
       })
   }
 
+  switchMapView = (value) => {
+    this.setState({
+      mapView: value
+    })
+  }
+
   updateMapData = (dateRange, selectedFilters) => {
-    console.log("date range: ", dateRange);
-    console.log("selected Filters: ", selectedFilters);
-    
     const startDate = new Date(dateRange[0]);
     const endDate = new Date(dateRange[1]);
     
@@ -119,18 +122,23 @@ class App extends React.Component {
   render(viewState) {
     return (
       <div> 
-          <BaseMap 
+        {(this.state.mapView === 0) ? (
+          <HeatMap 
             mapData={this.state.filteredData}
             viewState={viewState}
           >
-          </BaseMap>
-          <FilterSidebar 
-            updateMapData={this.updateMapData} 
-            open={this.state.openSidebar}
-            filterOptions={this.state.filterOptions}
-            showModal={this.showModal}
-          >
-          </FilterSidebar>
+          </HeatMap>
+        ) : (
+          <div> Here is where the hexagon map should be </div>
+        )}
+        <FilterSidebar 
+          updateMapData={this.updateMapData} 
+          open={this.state.openSidebar}
+          filterOptions={this.state.filterOptions}
+          showModal={this.showModal}
+          switchMapView={this.switchMapView}
+        >
+        </FilterSidebar>
         <LoadingModal show={this.state.show}/>
       </div>
     );

@@ -19,7 +19,7 @@ const INITIAL_VIEW_STATE = {
   };  
 
 // DeckGL react component
-class BaseMap extends React.Component {
+class HeatMap extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -87,7 +87,7 @@ class BaseMap extends React.Component {
     }
 }
 
-export default BaseMap;
+export default HeatMap;
 
 
 

@@ -23,6 +23,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 //import icons from react icons
 import { /*FiHome, FiLogOut,*/ FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
@@ -75,7 +77,8 @@ class FilterSideBar extends React.Component {
       menuCollapse: false,
       filterOptions: filterData.filterOptions,
       selectedFilters: JSON.parse(JSON.stringify(filterData.filterOptions)),
-      dateRange: ["1/1/2019 00:00:00 AM", "3/31/20212 11:59:59 PM"]
+      dateRange: ["1/1/2019 00:00:00 AM", "3/31/20212 11:59:59 PM"],
+      mapView: 0,
     }
   }
 
@@ -103,6 +106,14 @@ class FilterSideBar extends React.Component {
     
   }
 
+  switchMapView = (event, value) => {
+    this.setState({
+      mapView: value
+    });
+
+    this.props.switchMapView(value);
+  }
+
   prettifyText = (fieldName) => {
     if (fieldName === "borough"){
       return "Borough";
@@ -122,6 +133,22 @@ class FilterSideBar extends React.Component {
   getSidebarContent() {
     return (
       <div>
+        <div style={h2Style} key="map type header">
+            Map Type
+        </div>
+        <ToggleButtonGroup
+          value={this.state.mapView}
+          exclusive
+          onChange={this.switchMapView}
+          aria-label="map view"
+        >
+          <ToggleButton value={0} aria-label="heat map" style={{backgroundColor: 'white'}}>
+            Heat Map
+          </ToggleButton>
+          <ToggleButton value={1} aria-label="hexagon map" style={{backgroundColor: 'white'}}>
+            Hexagon Map
+          </ToggleButton>
+        </ToggleButtonGroup>
         <div style={h2Style} key="filter header">
             Filters
         </div>
@@ -175,6 +202,7 @@ class FilterSideBar extends React.Component {
           );
         })}
         <br/>
+
         <div style={tStyle}>
             Select Date Range
         </div>
