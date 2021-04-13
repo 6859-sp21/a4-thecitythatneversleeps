@@ -48,6 +48,7 @@ class App extends React.Component {
       .then(response => response.json())
       .then((mapData) => {
         console.log("success!");
+        console.log(mapData[0]);
         this.setState({
           show: false,
           mapData: mapData,
