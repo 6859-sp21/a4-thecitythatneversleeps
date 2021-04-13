@@ -42,6 +42,7 @@ const h2Style = { color: mediumYellow, height: '20px' }
 const h3Style = { color: 'white', height: '10px' }
 const tStyle = { color: lightYellow };
 const bStyle = { color: 'black' };
+const toggleStyle = {paddingTop: '15px', paddingBottom: '15px'}
 
 // const styles = {
 //   formControl: {
@@ -136,19 +137,22 @@ class FilterSideBar extends React.Component {
         <div style={h2Style} key="map type header">
             Map Type
         </div>
-        <ToggleButtonGroup
-          value={this.state.mapView}
-          exclusive
-          onChange={this.switchMapView}
-          aria-label="map view"
-        >
-          <ToggleButton value={0} aria-label="heat map" style={{backgroundColor: 'white'}}>
-            Heat Map
-          </ToggleButton>
-          <ToggleButton value={1} aria-label="hexagon map" style={{backgroundColor: 'white'}}>
-            Hexagon Map
-          </ToggleButton>
-        </ToggleButtonGroup>
+        <div style={toggleStyle}>
+          <ToggleButtonGroup
+            value={this.state.mapView}
+            size="small"
+            exclusive
+            onChange={this.switchMapView}
+            aria-label="map view"
+          >
+            <ToggleButton value={0} aria-label="heat map" style={{backgroundColor: 'white'}}>
+              Heat Map
+            </ToggleButton>
+            <ToggleButton value={1} aria-label="hexagon map" style={{backgroundColor: 'white'}}>
+              Hexagon Map
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
         <div style={h2Style} key="filter header">
             Filters
         </div>
@@ -209,9 +213,10 @@ class FilterSideBar extends React.Component {
         <DateSlider
           updateDateRange={this.handleDateRange}
         />
-        <div style={{paddingTop:'10px'}}>
+        <div style={{paddingTop:'0px'}}>
           <Button variant="contained" onClick={this.onSubmit} style={{
             color: "default", // changed from mediumGrey
+            size: "small",
             backgroundColor: mediumYellow,
           }}>Apply Filters</Button>   
         </div>
