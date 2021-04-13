@@ -41,6 +41,12 @@ class App extends React.Component {
     })
   };
 
+  showModal = () => {
+    this.setState({
+      show: true,
+    })
+  }
+
   // gets map data
   getMapData = () => {
     console.log("fetching data");
@@ -66,7 +72,7 @@ class App extends React.Component {
   updateMapData = (selectedFilters) => {
     // TODO clip the dataset by the start and end datetimes
     // for every data point
-    
+
     let mapData = this.state.mapData;
     var filteredData = [];
 
@@ -89,6 +95,7 @@ class App extends React.Component {
     }
 
     this.setState({
+      show: false,
       filteredData: filteredData
     })
   }
@@ -114,6 +121,7 @@ class App extends React.Component {
             updateMapData={this.updateMapData} 
             open={this.state.openSidebar}
             filterOptions={this.state.filterOptions}
+            showModal={this.showModal}
           >
           </FilterSidebar>
         {/* <div style={{zIndex: 10}}>

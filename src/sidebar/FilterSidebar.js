@@ -123,7 +123,9 @@ class FilterSideBar extends React.Component {
 
   onSubmit = () => {
     // TODO: we also want to update the date range
-    this.props.updateMapData(this.state.selectedFilters);
+    this.props.showModal();
+    setTimeout(() => {this.props.updateMapData(this.state.selectedFilters); }, 2000);
+    
   }
 
   prettifyText = (fieldName) => {
