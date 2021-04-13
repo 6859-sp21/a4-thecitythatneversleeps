@@ -70,38 +70,10 @@ class FilterSideBar extends React.Component {
     this.state = {
       menuCollapse: false,
       filterOptions: filterData.filterOptions,
-      selectedFilters: JSON.parse(JSON.stringify(filterData.filterOptions)), 
+      selectedFilters: JSON.parse(JSON.stringify(filterData.filterOptions)),
+      dateRange: ["1/1/2019 00:00:00 AM", "3/31/20212 11:59:59 PM"]
     }
   }
-
-  // MultiSelect = (defaultValues, options, labelName) => {
-
-  //   let handleChange = (newValue, actionMeta) => {
-  //     this.setState({filters: {
-  //       zipcode: zipcode == labelName? newValue: this.state.filters.zipcode,
-  //       borough: borough == labelName? newValue: this.state.filters.borough,
-  //       neighborhood: neighborhood == labelName? newValue: this.state.filters.neighborhood,
-  //       location_type: location_type == labelName? newValue: this.state.filters.location_type,
-  //       }
-  //     });
-
-  //     // this.props.updateMapData(this.state.filters)
-  //   };
-  
-  //   return (
-  //     <div className="tinyspace">
-  //       <Select
-  //         closeMenuOnSelect={false}
-  //         styles={customStyles}
-  //         onChange={handleChange}
-  //         // components={animatedComponents}
-  //         defaultValue={defaultValues}
-  //         isMulti
-  //         options={options}
-  //       />
-  //     </div>
-  //   );
-  // }
 
   // TODO: add slider object here to make our lives easier
   // update the state (add start and end date date times??? or just strings?)
@@ -122,8 +94,7 @@ class FilterSideBar extends React.Component {
   }
 
   onSubmit = () => {
-    // TODO: we also want to update the date range
-    this.props.updateMapData(this.state.selectedFilters);
+    this.props.updateMapData(this.state.dateRange, this.state.selectedFilters);
   }
 
   prettifyText = (fieldName) => {
@@ -136,11 +107,17 @@ class FilterSideBar extends React.Component {
     }
   }
 
+  handleDateRange = (dateRange) => {
+    this.setState({
+      dateRange: dateRange
+    })
+  }
+
   getSidebarContent() {
     return (
       <div>
         <div style={hStyle}>
-            Filters
+            Filter Noise Complaints
         </div>
         <br/>
         {fieldNames.map(fieldName => {
@@ -179,9 +156,11 @@ class FilterSideBar extends React.Component {
         })}
         <br/>
         <div style={tStyle}>
-            Date Range
+            Select Date Range
         </div>
-        <DateSlider/>
+        <DateSlider
+          updateDateRange={this.handleDateRange}
+        />
         <div style={{paddingTop:'10px'}}>
           <Button variant="contained" onClick={this.onSubmit}>Apply Filters</Button>   
         </div>
@@ -194,17 +173,12 @@ class FilterSideBar extends React.Component {
     const selectedOptions = event.target.value;
     const fieldName = event.target.name;
 
-    console.log("all options: ", selectedOptions);
-    console.log("field name:", fieldName);
-
     let newSelectedFilters = this.state.selectedFilters;
     newSelectedFilters[fieldName] = selectedOptions.slice();
 
     this.setState({
       selectedFilters: newSelectedFilters,
     })
-
-    console.log(this.state.selectedFilters);
   }
 
   render() {

@@ -63,15 +63,25 @@ class App extends React.Component {
 
   // for filtering data, called by FilterSidebar.js
   // filters = {'fieldName': [all selected options]}
-  updateMapData = (selectedFilters) => {
-    // TODO clip the dataset by the start and end datetimes
-    // for every data point
+  updateMapData = (dateRange, selectedFilters) => {
+
+    console.log("date range: ", dateRange);
+    console.log("selected Filters: ", selectedFilters);
+    
+    const startDate = new Date(dateRange[0]);
+    const endDate = new Date(dateRange[1]);
     
     let mapData = this.state.mapData;
     var filteredData = [];
 
     for (const datapoint of mapData) {
       let shouldInclude = true;
+
+      // compare dates
+      let thisDate = new Date(datapoint['Created Date']);
+      if (thisDate > endDate || thisDate < startDate) {
+        shouldInclude = false;
+      }
 
       // check all filters
       for (const field in selectedFilters) {
@@ -83,6 +93,8 @@ class App extends React.Component {
           shouldInclude = false;
         }
       }
+
+      // add to new filtered dataset
       if (shouldInclude) {
         filteredData.push(JSON.parse(JSON.stringify(datapoint)));
       }
