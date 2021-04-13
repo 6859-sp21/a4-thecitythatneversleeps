@@ -14,14 +14,15 @@ import {
 } from "react-pro-sidebar";
 
 import Button from '@material-ui/core/Button';
-import { createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-import {amber, grey} from '@material-ui/core/colors';
-// import amber from '@material-ui/core/colors/amber';
+import {createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
+import {amber, grey, blue} from '@material-ui/core/colors';
 
 import Input from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemText from '@material-ui/core/ListItemText';
 
 //import icons from react icons
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
@@ -32,45 +33,23 @@ import "./sidebar.css";
 import { amber500 } from "material-ui/styles/colors";
 
 const lightYellow = '#ffdd99';
-const hStyle = { color: '#ffdd99', height: '20px', padding:'5px' };
+const hStyle = { color: '#ffdd99', height: '20px' };
 const tStyle = { color: 'white' };
 const bStyle = { color: 'black' };
-const shade = amber[500];
 
-const customStyles = {
-  control: (base, state) => ({
-    ...base,
-    background: "white",
-    // match with the menu
-    borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-    // Overwrittes the different states of border
-    borderColor: state.isFocused ? lightYellow : "white",
-    // Removes weird border around container
-    boxShadow: state.isFocused ? null : null,
-    "&:hover": {
-      // Overwrittes the different states of border
-      borderColor: state.isFocused ? "red" : "blue"
-    }
-  }),
-  menu: base => ({
-    ...base,
-    // override border radius to match the box
-    borderRadius: 0,
-    // kill the gap
-    marginTop: 0
-  }),
-  menuList: base => ({
-    ...base,
-    // kill the white space on first and last option
-    padding: 0
-  })
-};
-
-const theme = createMuiTheme({
-  palette: {
-    primary: amber,
+const styles = {
+  formControl: {
+    minWidth: 120,
+    maxWidth: 300,
   },
-});
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  chip: {
+    margin: 2,
+  },
+};
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -83,96 +62,53 @@ const MenuProps = {
   },
 };
 
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: amber500,
-    backgroundColor: grey[900],
-    '&:hover': {
-      backgroundColor: amber500,
-    },
-  },
-}))(Button);
-
-function convert(stringArr) {
-  let res = [];
-
-  for (const s in stringArr){
-    res.push({value:s, label:s})
-  }
-
-  return res;
-}
-
-// const animatedComponents = makeAnimated();
-
-const zipcode = "Incident Zip";
-const borough = "borough";
-const neighborhood = "neighborhood";
-const location_type= "Location Type";
+const fieldNames = ["borough", "neighborhood", "Incident Zip", "Location Type"];
 
 class FilterSideBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       menuCollapse: false,
-      filterOptions: convert(filterData.filterOptions),
-      filters: convert(filterData.filterOptions), 
+      filterOptions: filterData.filterOptions,
+      selectedFilters: JSON.parse(JSON.stringify(filterData.filterOptions)), 
     }
   }
 
-  MultiSelect = (defaultValues, options, labelName) => {
+  // MultiSelect = (defaultValues, options, labelName) => {
 
-    let handleChange = (newValue, actionMeta) => {
-      this.setState({filters: {
-        zipcode: zipcode == labelName? newValue: this.state.filters.zipcode,
-        borough: borough == labelName? newValue: this.state.filters.borough,
-        neighborhood: neighborhood == labelName? newValue: this.state.filters.neighborhood,
-        location_type: location_type == labelName? newValue: this.state.filters.location_type,
-        }
-      });
+  //   let handleChange = (newValue, actionMeta) => {
+  //     this.setState({filters: {
+  //       zipcode: zipcode == labelName? newValue: this.state.filters.zipcode,
+  //       borough: borough == labelName? newValue: this.state.filters.borough,
+  //       neighborhood: neighborhood == labelName? newValue: this.state.filters.neighborhood,
+  //       location_type: location_type == labelName? newValue: this.state.filters.location_type,
+  //       }
+  //     });
 
-      // this.props.updateMapData(this.state.filters)
-    };
+  //     // this.props.updateMapData(this.state.filters)
+  //   };
   
-    return (
-      <div className="tinyspace">
-        <Select
-          closeMenuOnSelect={false}
-          styles={customStyles}
-          onChange={handleChange}
-          // components={animatedComponents}
-          defaultValue={defaultValues}
-          isMulti
-          options={options}
-        />
-      </div>
-    );
-  }
+  //   return (
+  //     <div className="tinyspace">
+  //       <Select
+  //         closeMenuOnSelect={false}
+  //         styles={customStyles}
+  //         onChange={handleChange}
+  //         // components={animatedComponents}
+  //         defaultValue={defaultValues}
+  //         isMulti
+  //         options={options}
+  //       />
+  //     </div>
+  //   );
+  // }
 
   // TODO: add slider object here to make our lives easier
   // update the state (add start and end date date times??? or just strings?)
 
   componentDidMount() {
-    // console.log(this.state.filterOptions)
-    // console.log(this.state.filters)
-  }
-
-  componentDidMount() {
-  //   // Initally all filters are selected
-  //   console.log(this.props.filterOptions)
-  //   this.setState({
-  //     // filters: {
-  //     //   zipcode: this.props.filterOptions.zipcode.slice(), // make copy w/ slice
-  //     //   borough: this.props.filterOptions.borough.slice(),
-  //     //   neighborhood: this.props.filterOptions.neighborhood.slice(),
-  //     //   location_type: this.props.filterOptions.location_type.slice(),
-  //     // }
-  //     filters: JSON.parse(JSON.stringify(this.props.filterOptions)),
-  //   });
-
-  //   console.log("setting initial filters")
-  //   console.log(this.state.filters)
-  //   console.log("done setting")
+    console.log("Filter Options", this.state.filterOptions);
+    console.log("Selected Filters", this.state.selectedFilters);
   }
 
   setMenuCollapse(value) {
@@ -187,61 +123,89 @@ class FilterSideBar extends React.Component {
 
   onSubmit = () => {
     // TODO: we also want to update the date range
-    this.props.updateMapData(this.state.filters);
+    this.props.updateMapData(this.state.selectedFilters);
+  }
+
+  prettifyText = (fieldName) => {
+    if (fieldName == "borough"){
+      return "Borough";
+    } else if (fieldName == "neighborhood") {
+      return "Neighborhood";
+    } else {
+      return fieldName;
+    }
   }
 
   getSidebarContent() {
     return (
       <div>
-        <div style = {tStyle}>Filters</div>
         <div style={hStyle}>
-            Select Noise Complaint Types
+            Filters
         </div>
-        {this.MultiSelect(this.state.filters[zipcode], this.state.filterOptions[zipcode],  zipcode)}
-        {this.MultiSelect(this.state.filters[neighborhood], this.state.filterOptions[neighborhood], neighborhood)}
-        {this.MultiSelect(this.state.filters[borough], this.state.filterOptions[borough], borough)}
-        {this.MultiSelect(this.state.filters[location_type], this.state.filterOptions[location_type], location_type)}
-        <div style={hStyle}>
-            Select a Date Range
+        <br/>
+        {fieldNames.map(fieldName => {
+          const fieldOptions = this.state.filterOptions[fieldName];
+          return(
+            <FormControl className={styles.formControl}>
+              <div style = {tStyle}>{this.prettifyText(fieldName)}</div>
+              <br/>
+              <Select
+                labelId={"multiple-select-"+fieldName}
+                id={fieldName}
+                name={fieldName}
+                multiple
+                value={this.state.selectedFilters[fieldName]}
+                onChange={this.handleChangeMultiple}
+                input={<Input id="select-multiple-chip" />}
+                renderValue={(selected) => selected.join(', ').slice(0, 27)+"..."}
+                MenuProps={MenuProps}
+                style={{backgroundColor: "#f5f5f5"}}
+              >
+                {fieldOptions.map((name) => {
+                  return (
+                  <MenuItem key={name} value={name} >
+                    <Checkbox 
+                      checked={this.state.selectedFilters[fieldName].indexOf(name) > -1} 
+                      color={"fff176"}
+                    />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                  )
+                })}
+              </Select>
+              <br/>
+            </FormControl>
+          );
+        })}
+        <br/>
+        <div style={tStyle}>
+            Date Range
         </div>
         <DateSlider/>
         <div style={{paddingTop:'10px'}}>
-          <ColorButton variant="contained" onClick={() => { alert('clicked') }}>Filter</ColorButton>   
+          <Button variant="contained" onClick={this.onSubmit}>Apply Filters</Button>   
         </div>
       </div>
-    )
+    );
   }
 
-  // // for single select field
-  // handleChangeSingle = (event) => {
-  //   let value = event.target.value;
-  //   let fieldName = event.target.id;
+  handleChangeMultiple = (event) => {
+    console.log(event);
+    const selectedOptions = event.target.value;
+    const fieldName = event.target.name;
 
-  //   let currFilters = this.state.filters;
-  //   currFilters[fieldName] = [value];
-  //   this.setState({
-  //     filters: currFilters,
-  //   })
-  // }
+    console.log("all options: ", selectedOptions);
+    console.log("field name:", fieldName);
 
-  // handleChangeMultiple = (event) => {
-  //   const {options} = event.target;
-  //   let fieldName = event.target.id;
+    let newSelectedFilters = this.state.selectedFilters;
+    newSelectedFilters[fieldName] = selectedOptions.slice();
 
-  //   var values = [];
-  //   for (let i = 0, l = options.length; i < l; i += 1) {
-  //     if (options[i].selected) {
-  //       values.push(options[i].value);
-  //     }
-  //   }
+    this.setState({
+      selectedFilters: newSelectedFilters,
+    })
 
-  //   let currFilters = this.state.filters;
-  //   currFilters[fieldName] = values;
-
-  //   this.setState({
-  //     filters: currFilters,
-  //   })
-  // }
+    console.log(this.state.selectedFilters);
+  }
 
   render() {
     return (
