@@ -36,27 +36,13 @@ import "./sidebar.css";
 const lightYellow = '#ffdd99';
 const mediumYellow = "#ffc34b";
 const mediumGrey = '#2b2d2f';
-// const hStyle = { position: 'relative', left:'10px', top:'5px', padding:'5px'};
-// const hTextStyle = { color: 'white', height: '20px'}
+
 const h2Style = { color: mediumYellow, height: '20px' }
 const h3Style = { color: 'white', height: '10px' }
 const tStyle = { color: lightYellow };
 const bStyle = { color: 'black' };
 const toggleStyle = {paddingTop: '15px', paddingBottom: '15px'}
-
-// const styles = {
-//   formControl: {
-//     minWidth: 120,
-//     maxWidth: 300,
-//   },
-//   chips: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//   },
-//   chip: {
-//     margin: 2,
-//   },
-// };
+const sliderStyle = {paddingLeft: '15px', paddingRight: '15px', paddingBottom: '15px'}
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -82,9 +68,6 @@ class FilterSideBar extends React.Component {
       mapView: 0,
     }
   }
-
-  // TODO: add slider object here to make our lives easier
-  // update the state (add start and end date date times??? or just strings?)
 
   componentDidMount() {
     console.log("Filter Options", this.state.filterOptions);
@@ -210,9 +193,11 @@ class FilterSideBar extends React.Component {
         <div style={tStyle}>
             Select Date Range
         </div>
-        <DateSlider
-          updateDateRange={this.handleDateRange}
-        />
+        <div style={sliderStyle}>
+          <DateSlider
+            updateDateRange={this.handleDateRange}
+          />
+        </div>
         <div style={{paddingTop:'0px'}}>
           <Button variant="contained" onClick={this.onSubmit} style={{
             color: "default", // changed from mediumGrey
