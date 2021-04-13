@@ -6,6 +6,7 @@ import filterData from "./data/filterOptions";
 import BaseMap from "./map/BaseMap";
 import FilterSidebar from "./sidebar/FilterSidebar";
 import DateSlider from "./slider/Slider";
+import LoadingModal from "./modal/LoadingModal";
 
 const fieldNames = ['Location Type', 'borough', 'neighborhood', 'Incident Zip'];
 
@@ -15,6 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      show: true,
       mapData: [],
       filteredData: [],
       layers: [],
@@ -48,6 +50,7 @@ class App extends React.Component {
         console.log("success!");
         console.log(mapData[0]);
         this.setState({
+          show: false,
           mapData: mapData,
           filteredData: JSON.parse(JSON.stringify(mapData))
         })
@@ -60,7 +63,7 @@ class App extends React.Component {
 
   // for filtering data, called by FilterSidebar.js
   // filters = {'fieldName': [all selected options]}
-  updateMapData = (filters) => {
+  updateMapData = (selectedFilters) => {
     // TODO clip the dataset by the start and end datetimes
     // for every data point
     
@@ -71,8 +74,8 @@ class App extends React.Component {
       let shouldInclude = true;
 
       // check all filters
-      for (const field in filters) {
-        let selectedOptions = filters[field];
+      for (const field in selectedFilters) {
+        let selectedOptions = selectedFilters[field];
         let value = datapoint[field];
 
         // once it doesn't match one of the filters, drop it
@@ -101,22 +104,23 @@ class App extends React.Component {
 
   render(viewState) {
     return (
-      <div>
-        <BaseMap 
-          mapData={this.state.filteredData}
-          viewState={viewState}
-        >
-        </BaseMap>
-        <FilterSidebar 
-          updateMapData={this.updateMapData} 
-          open={this.state.openSidebar}
-          filterOptions={this.state.filterOptions}
-        >
-        </FilterSidebar>
+      <div> 
+          <BaseMap 
+            mapData={this.state.filteredData}
+            viewState={viewState}
+          >
+          </BaseMap>
+          <FilterSidebar 
+            updateMapData={this.updateMapData} 
+            open={this.state.openSidebar}
+            filterOptions={this.state.filterOptions}
+          >
+          </FilterSidebar>
         {/* <div style={{zIndex: 10}}>
           <DateSlider> 
           </DateSlider>
         </div> */}
+        <LoadingModal show={this.state.show}/>
       </div>
     );
   }

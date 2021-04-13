@@ -2,7 +2,6 @@
     "filterOptions": {
         "Location Type": [
             "Park/Playground",
-            "",
             "Residential Building/House",
             "Store/Commercial",
             "Street/Sidewalk",
@@ -14,8 +13,7 @@
             "Brooklyn",
             "Manhattan",
             "Queens",
-            "Staten Island",
-            "borough"
+            "Staten Island"
         ],
         "neighborhood": [
             "Hunts Point and Mott Haven",
@@ -254,7 +252,6 @@
             "10112",
             "10282",
             "10000",
-            "NA",
             "10170",
             "10177",
             "10105",
