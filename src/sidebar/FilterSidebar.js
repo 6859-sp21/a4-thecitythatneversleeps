@@ -34,8 +34,8 @@ import "./sidebar.css";
 const lightYellow = '#ffdd99';
 const mediumYellow = "#ffc34b";
 const mediumGrey = '#2b2d2f';
-const hStyle = { position: 'relative', left:'10px', top:'5px', padding:'5px'};
-const hTextStyle = { color: 'white', height: '20px'}
+// const hStyle = { position: 'relative', left:'10px', top:'5px', padding:'5px'};
+// const hTextStyle = { color: 'white', height: '20px'}
 const h2Style = { color: mediumYellow, height: '20px' }
 const h3Style = { color: 'white', height: '10px' }
 const tStyle = { color: lightYellow };
@@ -122,24 +122,31 @@ class FilterSideBar extends React.Component {
   getSidebarContent() {
     return (
       <div>
-        <div style={h2Style}>
+        <div style={h2Style} key="filter header">
             Filters
         </div>
         <br/>
         {fieldNames.map(fieldName => {
           const fieldOptions = this.state.filterOptions[fieldName];
           return(
-            <FormControl className={styles.formControl}>
+            <FormControl 
+              style={{
+              minWidth: 120,
+              maxWidth: 300
+              }} 
+              key = {fieldName+'-form'}
+              id={fieldName+'-form'}>
               <div style = {tStyle}>{this.prettifyText(fieldName)}</div>
               <br/>
               <Select
                 labelId={"multiple-select-"+fieldName}
                 id={fieldName}
+                key={fieldName}
                 name={fieldName}
                 multiple
                 value={this.state.selectedFilters[fieldName]}
                 onChange={this.handleChangeMultiple}
-                input={<Input id={fieldName} />}
+                input={<Input id={fieldName} key={fieldName+'-input'} />}
                 renderValue={(selected) => selected.join(', ')}
                 MenuProps={MenuProps}
                 style={{
@@ -156,9 +163,9 @@ class FilterSideBar extends React.Component {
                   <MenuItem key={name} value={name} >
                     <Checkbox 
                       checked={this.state.selectedFilters[fieldName].indexOf(name) > -1} 
-                      color={mediumGrey}
+                      color="default" // changed from mediumGrey
                     />
-                    <ListItemText primary={name} />
+                    <ListItemText key={name+'-list-item-text'} primary={name} />
                   </MenuItem>
                   )
                 })}
@@ -176,7 +183,7 @@ class FilterSideBar extends React.Component {
         />
         <div style={{paddingTop:'10px'}}>
           <Button variant="contained" onClick={this.onSubmit} style={{
-            color: mediumGrey,
+            color: "default", // changed from mediumGrey
             backgroundColor: mediumYellow,
           }}>Apply Filters</Button>   
         </div>
