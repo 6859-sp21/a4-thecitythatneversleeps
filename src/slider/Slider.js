@@ -1,8 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import {amber} from '@material-ui/core/colors';
-import MapsTransferWithinAStation from 'material-ui/svg-icons/maps/transfer-within-a-station';
+// import MapsTransferWithinAStation from 'material-ui/svg-icons/maps/transfer-within-a-station';
 
 const styles = {
   root: {
@@ -64,7 +64,7 @@ class DateSlider extends React.Component {
     let year = 19 + Math.floor(value / 12);
     let month = months[value % 12];
 
-    return month + " \'" + year.toString();
+    return month + " '" + year.toString();
   }
 
   toStrings = (dateRangeValues) => {
@@ -81,7 +81,7 @@ class DateSlider extends React.Component {
     // handle end date
     let endYear = 2019 + Math.floor(end / 12);
     let endMonth = end % 12 + 1;
-    let endDay = (endMonth == 2) ? daysPerMonth[endMonth-1][endYear] : daysPerMonth[endMonth-1];
+    let endDay = (endMonth === 2) ? daysPerMonth[endMonth-1][endYear] : daysPerMonth[endMonth-1];
     let endTime = "11:59:59 PM";
 
     let endDatetime = endMonth.toString() + "/" + endDay.toString() + "/" + endYear.toString() + " " + endTime;
