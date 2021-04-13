@@ -33,8 +33,12 @@ import "./sidebar.css";
 import { amber500 } from "material-ui/styles/colors";
 
 const lightYellow = '#ffdd99';
-const hStyle = { color: '#ffdd99', height: '20px' };
-const tStyle = { color: 'white' };
+const mediumYellow = "#ffc34b";
+const mediumGrey = '#2b2d2f';
+const hStyle = { color: 'white', height: '20px' };
+const h2Style = { color: mediumYellow, height: '20px' }
+const h3Style = { color: 'white', height: '10px' }
+const tStyle = { color: lightYellow };
 const bStyle = { color: 'black' };
 
 const styles = {
@@ -141,7 +145,7 @@ class FilterSideBar extends React.Component {
   getSidebarContent() {
     return (
       <div>
-        <div style={hStyle}>
+        <div style={h2Style}>
             Filters
         </div>
         <br/>
@@ -159,16 +163,23 @@ class FilterSideBar extends React.Component {
                 value={this.state.selectedFilters[fieldName]}
                 onChange={this.handleChangeMultiple}
                 input={<Input id="select-multiple-chip" />}
-                renderValue={(selected) => selected.join(', ').slice(0, 27)+"..."}
+                renderValue={(selected) => selected.join(', ')}
                 MenuProps={MenuProps}
-                style={{backgroundColor: "#f5f5f5"}}
+                style={{
+                  backgroundColor: 'white',
+                  paddingLeft: '10px', 
+                  width:'260px' , 
+                  paddingRight: '5px', 
+                  borderRadius: '5px',
+                  color: mediumGrey,
+                }}
               >
                 {fieldOptions.map((name) => {
                   return (
                   <MenuItem key={name} value={name} >
                     <Checkbox 
                       checked={this.state.selectedFilters[fieldName].indexOf(name) > -1} 
-                      color={"fff176"}
+                      color={mediumGrey}
                     />
                     <ListItemText primary={name} />
                   </MenuItem>
@@ -185,7 +196,10 @@ class FilterSideBar extends React.Component {
         </div>
         <DateSlider/>
         <div style={{paddingTop:'10px'}}>
-          <Button variant="contained" onClick={this.onSubmit}>Apply Filters</Button>   
+          <Button variant="contained" onClick={this.onSubmit} style={{
+            color: mediumGrey,
+            backgroundColor: mediumYellow,
+          }}>Apply Filters</Button>   
         </div>
       </div>
     );
@@ -233,13 +247,13 @@ class FilterSideBar extends React.Component {
                 {this.state.menuCollapse ? (
                   <div className="space">
                     <FiArrowRightCircle
-                      color = {'#ffdd99'}
+                      color = {mediumYellow}
                     />
                   </div>
                 ) : (
                   <div className="space">
                     <FiArrowLeftCircle
-                      color = {'#ffdd99'}
+                      color = {mediumYellow}
                     />
                   </div>
                 )}
@@ -255,7 +269,7 @@ class FilterSideBar extends React.Component {
                   </div>
                   <div className="bottom-space">
                     <SidebarFooter>
-                    <div style = {tStyle}>Horne, Phu, Price</div>
+                    <div style = {h3Style}>Horne, Phu, Price</div>
                     </SidebarFooter>
                   </div>
                 </div>
