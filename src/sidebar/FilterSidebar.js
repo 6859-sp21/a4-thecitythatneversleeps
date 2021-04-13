@@ -1,6 +1,6 @@
 
 //import useState hook to create menu collapse state
-import React, { Component, useState } from "react";
+import React /*,{ Component, useState }*/ from "react";
 import filterData from "./../data/filterOptions";
 // import makeAnimated from 'react-select/animated';
 import DateSlider from "./../slider/Slider";
@@ -14,8 +14,8 @@ import {
 } from "react-pro-sidebar";
 
 import Button from '@material-ui/core/Button';
-import {createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-import {amber, grey, blue} from '@material-ui/core/colors';
+// import {createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
+// import {amber, grey, blue} from '@material-ui/core/colors';
 
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
@@ -25,12 +25,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 
 //import icons from react icons
-import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { /*FiHome, FiLogOut,*/ FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./sidebar.css";
-import { amber500 } from "material-ui/styles/colors";
 
 const lightYellow = '#ffdd99';
 const mediumYellow = "#ffc34b";
@@ -104,9 +103,9 @@ class FilterSideBar extends React.Component {
   }
 
   prettifyText = (fieldName) => {
-    if (fieldName == "borough"){
+    if (fieldName === "borough"){
       return "Borough";
-    } else if (fieldName == "neighborhood") {
+    } else if (fieldName === "neighborhood") {
       return "Neighborhood";
     } else {
       return fieldName;
