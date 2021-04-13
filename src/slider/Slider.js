@@ -1,29 +1,55 @@
 import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
+// import { withStyles/*, makeStyles*/ } from "@material-ui/core/styles";
 import Slider from '@material-ui/core/Slider';
-import {amber} from '@material-ui/core/colors';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+// import ValueLabel from "@material-ui/core/Slider/ValueLabel";
 // import MapsTransferWithinAStation from 'material-ui/svg-icons/maps/transfer-within-a-station';
 
-const styles = {
-  root: {
-    width: 300,
-  },
-  slider: {
-    mark: {
-      fontColor: "#ffffff",
-    },
-    color: amber,
-  },
-  valueLabel: {
-    textAlign: 'center',
-  }
-};
+const lightYellow = '#ffdd99';
+const mediumYellow = "#ffc34b";
+
+const muiTheme = createMuiTheme({
+  overrides:{
+    MuiSlider: {
+      valueLabel: { // the little thumb icon pop-up thingy
+        left: '0%',
+        '& *': {
+          background: 'black',
+          color: lightYellow,
+        },
+      },
+      thumb:{
+        color: lightYellow,
+      },
+      track: {
+        color: lightYellow
+      },
+      rail: {
+        opacity:'90%',
+        color: mediumYellow
+      },
+      markLabelActive: { // the text below
+        fontSize: "13px",
+        color: "white",
+      },
+      markLabel: {
+        fontSize: "13px",
+        color: "white",
+      },
+      mark: { // the tick marks
+        color: "white",
+        height: "5px",
+      }
+    }
+}
+});
 
 const marks = [
-  {value: 0, label: "Jan 2019"},
-  {value: 12, label: "Jan 2020"},
-  {value: 24, label: "Jan 2021"},
-  {value: 26, label: "Mar 2021"},
+  {value: 0, label: "Jan '19"},
+  {value: 12, label: "Jan '20"},
+  {value: 24, label: "Jan '21"},
+  // {value: 26, label: "Mar '21"}, // removed cause too much overlap
 ];
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -78,19 +104,20 @@ class DateSlider extends React.Component {
 
   render() {
     return (
-      <div className={styles.root}>
+      <div styles={{width:300}}>
         <br/>
-        <Slider
-          value={this.state.dateRange}
-          onChange={this.handleChange}
-          valueLabelDisplay="auto"
-          aria-labelledby="discrete-slider-custom"
-          valueLabelFormat={this.prettifyText}
-          marks={marks}
-          min={0}
-          max={26}
-          styles={styles.slider}
-        />
+        <ThemeProvider theme={muiTheme}>
+          <Slider
+            value={this.state.dateRange}
+            onChange={this.handleChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="discrete-slider-custom"
+            valueLabelFormat={this.prettifyText}
+            marks={marks}
+            min={0}
+            max={26}
+          />
+        </ThemeProvider>
       </div>
     );
   } 
