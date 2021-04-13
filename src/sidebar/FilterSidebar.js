@@ -41,19 +41,19 @@ const h3Style = { color: 'white', height: '10px' }
 const tStyle = { color: lightYellow };
 const bStyle = { color: 'black' };
 
-const styles = {
-  formControl: {
-    minWidth: 120,
-    maxWidth: 300,
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: 2,
-  },
-};
+// const styles = {
+//   formControl: {
+//     minWidth: 120,
+//     maxWidth: 300,
+//   },
+//   chips: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//   },
+//   chip: {
+//     margin: 2,
+//   },
+// };
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
