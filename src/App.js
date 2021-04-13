@@ -3,6 +3,7 @@ import './App.css';
 
 import filterData from "./data/filterOptions";
 import HeatMap from "./maps/HeatMap";
+import HexagonMap from "./maps/HexagonMap";
 import FilterSidebar from "./sidebar/FilterSidebar";
 import LoadingModal from "./modal/LoadingModal";
 
@@ -129,7 +130,11 @@ class App extends React.Component {
           >
           </HeatMap>
         ) : (
-          <div> Here is where the hexagon map should be </div>
+          <HexagonMap 
+            mapData={this.state.filteredData}
+            viewState={viewState}
+          >
+          </HexagonMap>
         )}
         <FilterSidebar 
           updateMapData={this.updateMapData} 
