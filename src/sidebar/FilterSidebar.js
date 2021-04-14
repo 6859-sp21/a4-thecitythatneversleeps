@@ -1,21 +1,16 @@
 
-//import useState hook to create menu collapse state
 import React /*,{ Component, useState }*/ from "react";
 import filterData from "./../data/filterOptions";
-// import makeAnimated from 'react-select/animated';
 import DateSlider from "./../slider/Slider";
 
 //import react pro sidebar components
 import {
   ProSidebar,
   SidebarHeader,
-  SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
 
 import Button from '@material-ui/core/Button';
-// import {createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-// import {amber, grey, blue} from '@material-ui/core/colors';
 
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
@@ -257,11 +252,6 @@ class FilterSideBar extends React.Component {
                     <SidebarContent>
                       {this.getSidebarContent()}
                     </SidebarContent>
-                  </div>
-                  <div className="bottom-space">
-                    <SidebarFooter>
-                    <div style = {h3Style}>Horne, Phu, Price</div>
-                    </SidebarFooter>
                   </div>
                 </div>
               </div>
