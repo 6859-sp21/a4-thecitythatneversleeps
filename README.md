@@ -1,5 +1,5 @@
 # The City that Never Sleeps
-This interactive visualization allows users to see how many noise complaints there were throughout NYC across the time period of Covid-19. We gathered our data from [NYC Open Data] (https://data.cityofnewyork.us/Social-Services/311-Noise-Complaints/p5f6-bkga).
+This interactive visualization allows users to see how many noise complaints there were throughout NYC across the time period of Covid-19. We gathered our data from [NYC Open Data](https://data.cityofnewyork.us/Social-Services/311-Noise-Complaints/p5f6-bkga).
 
 To start, we filtered the data to include only relevant columns (e.g. Complaint Type, Location Type, Incident Zip Code, etc.), non-null rows, and data points that fell within the timeframe of Covid-19 (January 2020 through March 2021). By focusing in on these limited and relevant aspects of the data, we were able to focus on having our visualization empower users to explore how Covid-19 impacted noise complaints in NYC.
 
