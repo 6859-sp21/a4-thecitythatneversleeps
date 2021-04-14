@@ -65,7 +65,7 @@ class FilterSideBar extends React.Component {
       filterOptions: filterData.filterOptions,
       selectedFilters: JSON.parse(JSON.stringify(filterData.filterOptions)),
       dateRange: ["1/1/2019 00:00:00 AM", "3/31/20212 11:59:59 PM"],
-      mapView: 0,
+      mapView: 1,
     }
   }
 

@@ -25,7 +25,6 @@ class HeatMap extends React.Component {
         this.state = {
             layers: [],
             mapData: {},
-            iconData: []
         }
     }
 
@@ -36,7 +35,7 @@ class HeatMap extends React.Component {
     }
 
     // updates the general datasets from new props
-    _generateLayer() {
+    generateLayer() {
         var data = [];
 
         for (const key in this.state.mapData) {
@@ -74,10 +73,10 @@ class HeatMap extends React.Component {
         return(
             <div>
                 <DeckGL
-                    className={'BYE'}
+                    className={'HeatMap'}
                     initialViewState={INITIAL_VIEW_STATE}
                     controller={true}
-                    layers={this._generateLayer()}
+                    layers={this.generateLayer()}
                     viewState={this.props.viewState}
                 >
                 <StaticMap mapStyle={MAP_STYLE} mapboxApiAccessToken={config.mapboxAccessToken} />
