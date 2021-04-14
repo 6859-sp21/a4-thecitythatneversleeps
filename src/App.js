@@ -5,6 +5,7 @@ import filterData from "./data/filterOptions";
 import HeatMap from "./maps/HeatMap";
 import HexagonMap from "./maps/HexagonMap";
 import FilterSidebar from "./sidebar/FilterSidebar";
+import InfoSidebar from "./info/InfoSidebar";
 import LoadingModal from "./modal/LoadingModal";
 
 
@@ -136,6 +137,7 @@ class App extends React.Component {
           >
           </HexagonMap>
         )}
+        <InfoSidebar/>
         <FilterSidebar 
           updateMapData={this.updateMapData} 
           open={this.state.openSidebar}
