@@ -1,6 +1,6 @@
 # The City that Never Sleeps
 
-Our visualization can be viewed on [Github Pages](https://6859-sp21.github.io/a4-thecitythatneversleeps/), but there are still some persisting issues with the deployment of the base map. For full functionality, please see the "Local Testing Instructions" section down below. 
+Our visualization can be viewed on [Github Pages](https://6859-sp21.github.io/a4-thecitythatneversleeps/), but there are still some persisting Babel/WebWorker issues with the deployment of the MapBox API base map. For full functionality, please see the "Local Testing Instructions" section down below. 
 
 ### Visualization Preview
 
