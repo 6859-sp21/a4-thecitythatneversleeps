@@ -10,8 +10,8 @@ const config = {
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 
 const INITIAL_VIEW_STATE = {
-    longitude: -73.75,
-    latitude: 40.73,
+    longitude: -74,
+    latitude: 40.75,
     zoom: 9,
     maxZoom: 16,
     pitch: 0,

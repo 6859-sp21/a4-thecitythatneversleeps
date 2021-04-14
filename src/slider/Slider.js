@@ -46,14 +46,13 @@ const muiTheme = createMuiTheme({
 });
 
 const marks = [
-  {value: 0, label: "Jan '19"},
-  {value: 12, label: "Jan '20"},
-  {value: 24, label: "Jan '21"},
-  // {value: 26, label: "Mar '21"}, // removed cause too much overlap
+  {value: 0, label: "Jan '20"},
+  {value: 12, label: "Jan '21"},
+  // {value: 14, label: "Mar '21"}, // removed cause too much overlap
 ];
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const daysPerMonth = [31, {2019: 27, 2020: 28, 2021: 27}, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const daysPerMonth = [31, {2020: 28, 2021: 27}, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 class DateSlider extends React.Component {
   constructor(props) {
@@ -74,7 +73,7 @@ class DateSlider extends React.Component {
   };
 
   prettifyText = (value) => {
-    let year = 19 + Math.floor(value / 12);
+    let year = 20 + Math.floor(value / 12);
     let month = months[value % 12];
 
     return month + " '" + year.toString();
@@ -84,7 +83,7 @@ class DateSlider extends React.Component {
     const [start, end] = dateRangeValues;
 
     // handle start date
-    let startYear = 2019 + Math.floor(start / 12);
+    let startYear = 2020 + Math.floor(start / 12);
     let startMonth = start % 12 + 1;
     let startDay = 1;
     let startTime = "00:00:00 AM";
@@ -92,7 +91,7 @@ class DateSlider extends React.Component {
     let startDatetime = startMonth.toString() + "/" + startDay.toString() + "/" + startYear.toString() + " " + startTime;
 
     // handle end date
-    let endYear = 2019 + Math.floor(end / 12);
+    let endYear = 2020 + Math.floor(end / 12);
     let endMonth = end % 12 + 1;
     let endDay = (endMonth === 2) ? daysPerMonth[endMonth-1][endYear] : daysPerMonth[endMonth-1];
     let endTime = "11:59:59 PM";
@@ -115,7 +114,7 @@ class DateSlider extends React.Component {
             valueLabelFormat={this.prettifyText}
             marks={marks}
             min={0}
-            max={26}
+            max={14}
           />
         </ThemeProvider>
       </div>

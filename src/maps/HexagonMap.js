@@ -12,11 +12,11 @@ const config = {
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 
 const INITIAL_VIEW_STATE = {
-    longitude: -73.75,
-    latitude: 40.73,
-    zoom: 6.6,
-    minZoom: 8,
-    maxZoom: 16,
+    longitude: -74,
+    latitude: 40.75,
+    zoom: 10,
+    minZoom: 10,
+    maxZoom: 20,
     pitch: 40.5,
     bearing: 0
 }; 
@@ -47,13 +47,13 @@ const material = {
     specularColor: [51, 51, 51]
 };
 
-const colorRange = [
-    [1, 152, 189],
-    [73, 227, 206],
-    [216, 254, 181],
-    [254, 237, 177],
-    [254, 173, 84],
-    [209, 55, 78]
+export const colorRange = [
+  [1, 152, 189],
+  [73, 227, 206],
+  [216, 254, 181],
+  [254, 237, 177],
+  [254, 173, 84],
+  [209, 55, 78]
 ];
 
 const radius = 100;
@@ -109,7 +109,8 @@ class HexagonMap extends React.Component {
             colorRange,
             coverage,
             data,
-            elevationRange: [0, 3000],
+            elevationRange: [0, 500],
+            elevationDomain: [0, 5000],
             elevationScale: data && data.length ? 50 : 0,
             extruded: true,
             getPosition: d => d.coordinates,
@@ -118,7 +119,7 @@ class HexagonMap extends React.Component {
             upperPercentile,
             material,
             transitions: {
-                elevationScale: 3000
+                elevationScale: 200
             }
         });
         

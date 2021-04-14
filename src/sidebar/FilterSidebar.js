@@ -1,21 +1,16 @@
 
-//import useState hook to create menu collapse state
 import React /*,{ Component, useState }*/ from "react";
 import filterData from "./../data/filterOptions";
-// import makeAnimated from 'react-select/animated';
 import DateSlider from "./../slider/Slider";
 
 //import react pro sidebar components
 import {
   ProSidebar,
   SidebarHeader,
-  SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
 
 import Button from '@material-ui/core/Button';
-// import {createMuiTheme, withStyles, makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-// import {amber, grey, blue} from '@material-ui/core/colors';
 
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
@@ -36,6 +31,7 @@ import "./sidebar.css";
 const lightYellow = '#ffdd99';
 const mediumYellow = "#ffc34b";
 const mediumGrey = '#2b2d2f';
+const lightGrey = '#555658';
 
 const h2Style = { color: mediumYellow, height: '20px' }
 const h3Style = { color: 'white', height: '20px' }
@@ -69,11 +65,6 @@ class FilterSideBar extends React.Component {
     }
   }
 
-  componentDidMount() {
-    console.log("Filter Options", this.state.filterOptions);
-    console.log("Selected Filters", this.state.selectedFilters);
-  }
-
   setMenuCollapse(value) {
     this.setState({
       menuCollapse: value
@@ -91,11 +82,14 @@ class FilterSideBar extends React.Component {
   }
 
   switchMapView = (event, value) => {
-    this.setState({
-      mapView: value
-    });
+    if (value != null) {
+      this.setState({
+        mapView: value
+      });
 
-    this.props.switchMapView(value);
+      this.props.switchMapView(value);
+    }
+    
   }
 
   prettifyText = (fieldName) => {
@@ -128,10 +122,32 @@ class FilterSideBar extends React.Component {
             onChange={this.switchMapView}
             aria-label="map view"
           >
-            <ToggleButton value={0} aria-label="heat map" style={{backgroundColor: mediumGrey, color:lightYellow}}>
+            <ToggleButton 
+              value={0} 
+              aria-label="heat map" 
+              style={(this.state.mapView == 0) ? ({
+                backgroundColor: lightGrey, 
+                color:lightYellow,
+              }) : ({
+                backgroundColor: mediumGrey,   
+                color:lightYellow,
+              })}
+              disabled={this.state.mapView == 0}
+            >
               Heat Map
             </ToggleButton>
-            <ToggleButton value={1} aria-label="hexagon map" style={{backgroundColor: mediumGrey, color:lightYellow}}>
+            <ToggleButton 
+              value={1} 
+              aria-label="hexagon map" 
+              style={(this.state.mapView == 1) ? ({
+                backgroundColor: lightGrey, 
+                color:lightYellow,
+              }) : ({
+                backgroundColor: mediumGrey,   
+                color:lightYellow,
+              })}
+              disabled={this.state.mapView == 1}
+            >
               Hexagon Map
             </ToggleButton>
           </ToggleButtonGroup>
@@ -210,7 +226,6 @@ class FilterSideBar extends React.Component {
   }
 
   handleChangeMultiple = (event) => {
-    console.log(event);
     const selectedOptions = event.target.value;
     const fieldName = event.target.name;
 
@@ -257,11 +272,6 @@ class FilterSideBar extends React.Component {
                     <SidebarContent>
                       {this.getSidebarContent()}
                     </SidebarContent>
-                  </div>
-                  <div className="bottom-space">
-                    <SidebarFooter>
-                    <div style = {h3Style}>Horne, Phu, Price</div>
-                    </SidebarFooter>
                   </div>
                 </div>
               </div>

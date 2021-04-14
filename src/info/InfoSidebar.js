@@ -20,7 +20,7 @@ import "./infosidebar.css";
 const lightYellow = '#ffdd99';
 const mediumYellow = "#ffc34b";
 
-const h3Style = { color: 'white', height: '20px' }
+const h3Style = { color: mediumYellow, height: '20px' }
 const bStyle = { color: 'white' };
 
 class InfoSideBar extends React.Component {
@@ -28,6 +28,8 @@ class InfoSideBar extends React.Component {
     super(props);
     this.state = {
       menuCollapse: true,
+      urlOpenData: 'https://data.cityofnewyork.us/Social-Services/311-Noise-Complaints/p5f6-bkga',
+      urlGithub: 'https://github.com/6859-sp21/a4-thecitythatneversleeps',
     }
   }
 
@@ -44,7 +46,26 @@ class InfoSideBar extends React.Component {
   getSidebarContent() {
     return (
       <div>
-        This is what we're learning
+        <p>
+        <a>
+        The data used in this visualization was gathered from NYC Open Data, a free public data project published 
+        by New York City agencies and other partners. Here we have created a compilation of noise complaints in 
+        New York City, and you can look at the data yourself 
+        </a>
+        <a> </a>
+        <a href={this.state.urlOpenData} style={{color:lightYellow}} rel="noreferrer"> here</a>
+        <a>.</a>
+        </p>
+        <p>
+          On the left, you can toggle instantly between a heat map and hexagon map. You can also filter
+          the data via dropdowns, and select the range of time over which you want to observe aggregate trends. Press the "apply filters" button to see the map update. You can pan, zoom, and adjust the angle the map using normal 3D controls. 
+        </p>
+        <p>
+          <a>For more information on this project, including how we processed the dataset, check out our Github repository at</a>
+          <a> </a>
+          <a href={this.state.urlGithub} style={{color:lightYellow}} rel="noreferrer">this link</a>
+          <a>.</a>
+        </p>
       </div>
     );
   }
@@ -83,7 +104,7 @@ class InfoSideBar extends React.Component {
                   </div>
                   <div className="bottom-space">
                     <SidebarFooter>
-                    <div style = {h3Style}>Horne, Phu, Price</div>
+                    <div style = {h3Style}>Amanda Horne, Melody Phu, Magdalena Price</div>
                     </SidebarFooter>
                   </div>
                 </div>
