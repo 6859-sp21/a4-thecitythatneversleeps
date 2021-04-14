@@ -1,5 +1,7 @@
 # The City that Never Sleeps
 
+Our visualization can be viewed on [Github Pages](https://6859-sp21.github.io/a4-thecitythatneversleeps/), but there are still some persisting issues with the deployment of the base map. For full functionality, please see the "Deployment Instructions" section down below. 
+
 ### Visualization Preview
 
 <img width="1333" alt="HeatMap" src="https://user-images.githubusercontent.com/30029166/114647175-a7e35900-9caa-11eb-83ea-42a35a2b54ff.png">
