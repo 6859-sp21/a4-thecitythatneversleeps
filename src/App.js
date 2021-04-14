@@ -17,7 +17,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       show: true,
-      mapView: 0, // heat map = 0, hexagon map = 1
+      mapView: 1, // heat map = 0, hexagon map = 1
       mapData: [],
       filteredData: [],
       layers: [],
