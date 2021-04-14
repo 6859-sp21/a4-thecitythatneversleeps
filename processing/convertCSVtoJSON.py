@@ -3,7 +3,7 @@ import json
  
 # Decide the two file paths according to your
 # computer system
-csvFilePath = r'../src/data/MCDPleaseWork.csv'
+csvFilePath = r'../src/data/LoudMusicComplaintsData2020_1_excludedZip.csv'
 jsonFilePath1 = r'../src/data/allMapData.json'
 
 # Function to convert a CSV to JSON
