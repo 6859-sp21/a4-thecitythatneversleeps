@@ -1,0 +1,102 @@
+  #info-header {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 400px;
+    height: 500px;
+    display: flex;
+    color: black;
+  }
+
+  #info-header .pro-sidebar {
+    background-color: black;
+    height: 50vh;
+  }
+
+  #info-header .pro-sidebar-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #info-header .closemenu {
+    color: #000;
+    position: absolute;
+    right: 0;
+    z-index: 9998;
+    line-height: 20px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 22px;
+    top: 55px;
+    cursor: pointer;
+  }
+
+  #info-header .pro-sidebar {
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  #info-header .pro-sidebar.collapsed {
+    color: black;
+    width: 10px;
+    height: 50px;
+    min-height: 50px;
+  }
+  #info-header .pro-sidebar-inner {
+    background-color: black;
+    box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
+  }
+  #info-header .pro-sidebar-inner .pro-sidebar-layout {
+    overflow-y: hidden;
+  }
+  #info-header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
+    font-size: 20px;
+    padding: 0 20px;
+    color: white;
+    font-weight: bold;
+  }
+  #info-header .pro-sidebar-inner .pro-sidebar-layout ul {
+    padding: 0 5px;
+  }
+  #info-header .pro-sidebar-inner .pro-sidebar-layout ul .info-inner-item {
+    color: #000;
+    margin: 10px 0px;
+    font-weight: bold;
+  }
+  #info-header .pro-sidebar-inner .pro-sidebar-layout ul .info-inner-item .info-icon-wrapper {
+    background-color: #fbf4cd;
+    color: #000;
+    border-radius: 3px;
+  }
+  #info-header .pro-sidebar-inner .pro-sidebar-layout ul .info-inner-item .info-icon-wrapper .info-item-content {
+    color: #000;
+  }
+  #info-header .pro-sidebar-inner .pro-sidebar-layout .active {
+    background-image: linear-gradient(0deg, #fece00 0%, #ffe172 100%);
+  }
+  #info-header .logo {
+    padding: 20px;
+  }
+
+  #info-header .space {
+    padding: 20px;
+  }
+
+  #info-header .tinyspace {
+    padding: 10px;
+  }
+
+  #info-header .bottom-space {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
+  }
+
+  @media only screen and (max-width: 720px) {
+    html {
+      overflow: hidden;
+    }
+  }
